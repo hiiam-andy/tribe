@@ -52,3 +52,10 @@ height: 50%;
   display: flex;
   margin-bottom: 9px;
 }
+
+@media(max-width:451px){
+  .card{
+    flex-direction: row;
+    max-height: 250px;
+  }
+}

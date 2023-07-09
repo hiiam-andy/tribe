@@ -1,14 +1,12 @@
 import React from "react";
-import Header from "./Components/Header/Header";
-import Search from "./Components/Search/Search";
-import Cards from "./Components/Cards/Cards";
+import { BrowserRouter } from "react-router-dom";
+
+import AppRouter from "./Pages/AppRouter";
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <Search />
-      <Cards />
-    </div>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
