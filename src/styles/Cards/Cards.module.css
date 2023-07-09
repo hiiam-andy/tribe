@@ -1,0 +1,14 @@
+.cards{
+  max-width: 882px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+}
+.cards_wrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(207px, 1fr));
+  gap:  8px;
+  justify-content: space-around;
+  max-width: 950px;
+
+}
