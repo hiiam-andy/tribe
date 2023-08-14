@@ -12,24 +12,19 @@ import { Link } from "react-router-dom";
 
 export default function Card({ id, image, title, place, date, time, inFav }) {
   const [like, setLike] = useState(true);
-  const addLike = () => {
-    setLike(!like);
-  };
 
   return (
     <div className={style.card}>
       {like ? (
-        <BsHeart
-          className={style.heart}
-          onClick={() => {
-            addLike();
-            console.log(inFav);
-          }}
-        />
+        <BsHeart className={style.heart} onClick={() => setLike(!like)} />
       ) : (
-        <BsHeartFill className={style.like} onClick={() => addLike()} />
+        <BsHeartFill className={style.like} onClick={() => setLike(!like)} />
       )}
-      <img className={style.image} src={image} alt="card" />
+      <img
+        className={style.image}
+        src={`https://tribual.ru/api/v1/events/avatars/${image}`}
+        alt="card"
+      />
       <Link to={`/event/${id}`} className={style.info}>
         <div className={style.title}>
           <div className={style.title_text}>{title}</div>
@@ -40,11 +35,11 @@ export default function Card({ id, image, title, place, date, time, inFav }) {
           </div>
           <div className={`${style.date} ${style.desc_info}`}>
             <BsCalendarCheck className={style.desc_icon} />
-            {date}
+            {date.substring(0, 10)}
           </div>
           <div className={`${style.time} ${style.desc_info}`}>
             <MdWatch className={style.desc_icon} />
-            {time}
+            {date.substring(11, date.length - 3)}
           </div>
         </div>
       </Link>

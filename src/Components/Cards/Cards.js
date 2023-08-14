@@ -1,30 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import Card from "./Card";
+import { getEvents } from "../../store/eventsSlice";
 import style from "./styles/Cards.module.css";
 
-import { cardsFromApi } from "../../api/fakeCards";
-
 export default function Cards() {
-  const [cards, setValue] = useState(cardsFromApi);
+  const dispatch = useDispatch();
+  const { events } = useSelector((state) => state);
+  useEffect(() => {
+    dispatch(getEvents());
+  }, [dispatch]);
 
-  const res = cards.map((card) => {
-    return (
-      <Card
-        key={card.id}
-        id={card.id}
-        image={card.image}
-        title={card.title}
-        place={card.place}
-        date={card.date}
-        time={card.time}
-        inFav={card.inFav}
-      />
-    );
-  });
+  const allEvents = events.list.map((event) => (
+    <Card
+      key={event.eventId}
+      id={event.eventId}
+      image={event.avatarUrl}
+      title={event.eventName}
+      place={event.eventAddress.city}
+      date={event.startTime}
+    />
+  ));
 
   return (
     <div className={style.cards}>
-      <div className={style.cards_wrapper}>{res}</div>
+      <div className={style.cards_wrapper}>{allEvents}</div>
     </div>
   );
 }
