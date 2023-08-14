@@ -7,4 +7,12 @@ export const chipsFromApi = [
   { id: 6, name: "Еда" },
   { id: 7, name: "Туризм" },
   { id: 8, name: "Отдых за городом" },
+  { id: 9, name: "Авто" },
+  { id: 10, name: "Музыка" },
+  { id: 11, name: "Кино" },
+  { id: 12, name: "Спорт" },
+  { id: 13, name: "Выставки" },
+  { id: 14, name: "Еда" },
+  { id: 15, name: "Туризм" },
+  { id: 16, name: "Отдых за городом" },
 ];

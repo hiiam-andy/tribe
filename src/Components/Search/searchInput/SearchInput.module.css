@@ -2,8 +2,10 @@
 .sectionSearch_input{
   display: flex;
   justify-content: space-between;
+  align-self: center;
   padding: 16px 29px 8px;
-
+  max-width: 850px;
+  width:100%
 }
 .search_block{
   display: flex;
@@ -12,15 +14,15 @@
   padding:10px 15px; 
   width: 82.3%;
   height: 36px;
-  border: 1px solid #5837F3;
   border-radius: 20px;
-  background-color: #e3e1ec;
+  background-color: var(--input-bg);
   overflow: hidden;
   
 }
 .search_icon{
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
 .search_input{
   font-size: 16px;
@@ -33,9 +35,10 @@
   outline: none;
 }
 .close_icon{
-
+cursor: pointer;
 }
 .filter_icon{
   width:36px;
   height: 36px;
+  cursor: pointer;
 }

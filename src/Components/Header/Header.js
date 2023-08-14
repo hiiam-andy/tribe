@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import style from "../../styles/Header.module.css";
+import style from "./styles/Header.module.css";
 
 import addBtn from "../../Images/header_add.svg";
 import logo from "../../Images/logo.svg";
@@ -17,7 +17,7 @@ import {
   MAIN_ROUTE,
   PROFILE_ROUTE,
   SETTINGS_ROUTE,
-} from "../../Pages/CONST_PAGES";
+} from "../../utils/CONST_PAGES";
 
 export default function Header() {
   const navigate = useNavigate();

@@ -3,13 +3,17 @@
   flex-direction: column;
   position: relative;
   max-height: 269px;
-  background-color: #e9dde9;
+  background-color: var(--bg);
   border-radius: 10px;
   overflow: hidden;
   transition: all .3s ease;
 }
+.card:hover{
+  box-shadow: 0 0 5px 7px #e3e1ec;
+}
 .image{
 height: 47%;
+min-height: 120px ;
 object-fit: cover;
 }
 

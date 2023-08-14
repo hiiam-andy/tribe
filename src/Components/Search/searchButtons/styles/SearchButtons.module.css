@@ -1,6 +1,5 @@
 .searchButtons_section{
 display: flex;
-/* overflow: hidden; */
 padding: 4px 0 8px ;
 overflow-x:scroll;
 }

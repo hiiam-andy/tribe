@@ -1,12 +1,12 @@
 .sectionSearch{
+  display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 2;
   width:100%;
   min-height: 108px;
   height: 13%;
-  margin-left: auto;
-  margin-right: auto;
-  background-color:  #f7f1fe;
+  background-color:  var(--bg);
 }
 
 .geo{

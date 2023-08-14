@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import search from "../../../Images/search_icon.svg";
-import close from "../../../Images/searchClose.png";
-import filter from "../../../Images/searchFilter.png";
+import close from "../../../Images/searchClose.svg";
+import filter from "../../../Images/searchFilter.svg";
 
 import styles from "./SearchInput.module.css";
 
