@@ -10,7 +10,7 @@ import { MdWatch } from "react-icons/md";
 import style from "./styles/Card.module.css";
 import { Link } from "react-router-dom";
 
-export default function Card({ id, image, title, place, date, time, inFav }) {
+export default function Card({ id, image, title, place, date, inFav }) {
   const [like, setLike] = useState(true);
 
   return (

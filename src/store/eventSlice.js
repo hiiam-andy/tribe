@@ -7,7 +7,7 @@ export const getEvent = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const res = await axios(`${BASE_URL}/events/${id}`);
-      return res;
+      return res.data;
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -15,7 +15,7 @@ export const getEvent = createAsyncThunk(
   }
 );
 
-const eventsSlice = createSlice({
+const eventSlice = createSlice({
   name: "event",
   initialState: {
     list: [],
@@ -27,4 +27,4 @@ const eventsSlice = createSlice({
   },
 });
 
-export default eventsSlice.reducer;
+export default eventSlice.reducer;
