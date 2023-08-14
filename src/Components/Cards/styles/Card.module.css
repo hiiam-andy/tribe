@@ -1,31 +1,43 @@
 .card{
   display: flex;
   flex-direction: column;
-  min-height: 282px;
+  position: relative;
+  max-height: 269px;
   background-color: #e9dde9;
   border-radius: 10px;
   overflow: hidden;
   transition: all .3s ease;
 }
 .image{
-height: 50%;
+height: 47%;
+object-fit: cover;
 }
+
 .heart{
+  position: absolute;
+  top: 10px;
+  left: 83.6%;
   width:18px;
   height: 22px;
   cursor: pointer;
-
 }
+
 .like{
+  position: absolute;
+  top: 10px;
+  left: 83.6%;
   width:18px;
   height: 22px;
   cursor: pointer;
   color: red;
-
 }
 .info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding:8px 16px;
   height:50%;
+  color: #1b1b1f
 }
 .title{
   display: flex;
@@ -34,9 +46,12 @@ height: 50%;
 }
 .title_text{
   max-width: 88%;
+  max-height: 50px;
+  overflow: hidden;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
+  
 }
 .description{
   font-size: 12px;
@@ -51,11 +66,4 @@ height: 50%;
 .desc_info{
   display: flex;
   margin-bottom: 9px;
-}
-
-@media(max-width:451px){
-  .card{
-    flex-direction: row;
-    max-height: 250px;
-  }
 }

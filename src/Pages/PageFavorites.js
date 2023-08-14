@@ -1,11 +1,15 @@
 import React from "react";
-import Header from "../Components/Header/Header";
+import Search from "../Components/Search/Search";
+import NavbarMobile from "../Components/NavbarMobile/NavbarMobile";
 
 export default function PageFavorites() {
   return (
     <div>
-      <Header />
-      <h1>ИЗБРАННОЕ</h1>
+      <Search />
+      <div className="container">
+        <h1>ИЗБРАННОЕ</h1>
+      </div>
+      <NavbarMobile />
     </div>
   );
 }

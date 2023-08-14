@@ -12,7 +12,7 @@ import settings from "../../Images/header_settings.svg";
 
 import {
   CHAT_ROUTE,
-  EVENT_ROUTE,
+  EVENTS_ROUTE,
   FAVORITES_ROUTE,
   MAIN_ROUTE,
   PROFILE_ROUTE,
@@ -41,7 +41,7 @@ export default function Header() {
             </li>
             <li
               className={style.nav_link}
-              onClick={() => navigate(EVENT_ROUTE)}
+              onClick={() => navigate(EVENTS_ROUTE)}
             >
               <button className={style.btn}>Создать событие</button>
               <button className={style.addBtn}>

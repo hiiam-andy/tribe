@@ -7,9 +7,11 @@ import {
 } from "react-icons/bs";
 import { MdWatch } from "react-icons/md";
 
-import style from "../../styles/Cards/Card.module.css";
+import style from "./styles/Card.module.css";
+import { Link } from "react-router-dom";
+import { EVENTS_ROUTE } from "../../Pages/CONST_PAGES";
 
-export default function Card({ image, title, place, date, time }) {
+export default function Card({ id, image, title, place, date, time, inFav }) {
   const [like, setLike] = useState(true);
   const addLike = () => {
     setLike(!like);
@@ -17,17 +19,21 @@ export default function Card({ image, title, place, date, time }) {
 
   return (
     <div className={style.card}>
+      {like ? (
+        <BsHeart
+          className={style.heart}
+          onClick={() => {
+            addLike();
+            console.log(inFav);
+          }}
+        />
+      ) : (
+        <BsHeartFill className={style.like} onClick={() => addLike()} />
+      )}
       <img className={style.image} src={image} alt="card" />
-      <div className={style.info}>
+      <Link to={`/event/${id}`} className={style.info}>
         <div className={style.title}>
-          <h1 className={style.title_text}>{title}</h1>
-          <div>
-            {like ? (
-              <BsHeart className={style.heart} onClick={() => addLike()} />
-            ) : (
-              <BsHeartFill className={style.like} onClick={() => addLike()} />
-            )}
-          </div>
+          <div className={style.title_text}>{title}</div>
         </div>
         <div className={style.description}>
           <div className={`${style.place} ${style.desc_info}`}>
@@ -42,7 +48,7 @@ export default function Card({ image, title, place, date, time }) {
             {time}
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

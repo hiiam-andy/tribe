@@ -1,11 +1,12 @@
 import React from "react";
-import Header from "../Components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 export default function PageEvent() {
+  const navigate = useNavigate();
   return (
     <div>
-      <Header />
-      <h1>СОБЫТИЕ</h1>
+      <button onClick={() => navigate(-1)}>назад</button>
+      <div></div>
     </div>
   );
 }

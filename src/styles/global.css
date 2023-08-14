@@ -14,7 +14,23 @@ img {
 .root{
   margin-left: auto;
   margin-right: auto;
+  
 }
 li {
   list-style: none;
+}
+.container{
+  padding: 127px 8px 66px ;
+}
+a{
+  text-decoration: none;
+}
+::-webkit-scrollbar {
+  height: 4px;  
+  width:4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #79747E;  
+  border-radius: 4px;     
 }

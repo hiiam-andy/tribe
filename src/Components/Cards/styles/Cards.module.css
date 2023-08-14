@@ -1,14 +1,15 @@
 .cards{
   max-width: 882px;
+  max-height: 75%;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 15px;
+  overflow-y: auto;
 }
 .cards_wrapper{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(207px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(167px, 1fr));
   gap:  8px;
   justify-content: space-around;
   max-width: 950px;
-
+  
 }

@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../Components/Header/Header";
+import NavbarMobile from "../Components/NavbarMobile/NavbarMobile";
 
 export default function PageChat() {
   return (
     <div>
-      <Header />
       <h1>ЧАТ</h1>
+      <NavbarMobile />
     </div>
   );
 }

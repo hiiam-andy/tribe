@@ -1,15 +1,13 @@
 import React from "react";
-import SearchInput from "./SearchInput";
-import SearchButtons from "./SearchButtons";
-import style from "../../styles/Search/Search.module.css";
-// import SearchButtonsGrid from "./SearchButtonsGrid";
+import SearchInput from "./searchInput/SearchInput";
+import SearchButtons from "./searchButtons/SearchButtons";
+import styles from "./Search.module.css";
 
 export default function Serach() {
   return (
-    <div className={style.sectionSearch}>
+    <div className={styles.sectionSearch}>
       <SearchInput />
       <SearchButtons />
-      {/* <SearchButtonsGrid /> */}
     </div>
   );
 }

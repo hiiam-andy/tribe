@@ -1,0 +1,15 @@
+.searchButtons_section{
+display: flex;
+/* overflow: hidden; */
+padding: 4px 0 8px ;
+overflow-x:scroll;
+}
+
+.searchButtons_section::-webkit-scrollbar {
+  height: 4px;  
+}
+
+.searchButtons_section::-webkit-scrollbar-thumb {
+  background-color: #79747E;  
+  border-radius: 4px;       
+}

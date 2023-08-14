@@ -1,14 +1,16 @@
 import React from "react";
-import Header from "../Components/Header/Header";
 import Search from "../Components/Search/Search";
 import Cards from "../Components/Cards/Cards";
+import NavbarMobile from "../Components/NavbarMobile/NavbarMobile";
 
 export default function PageMain() {
   return (
     <div className="app">
-      <Header />
       <Search />
-      <Cards />
+      <div className="container">
+        <Cards />
+      </div>
+      <NavbarMobile />
     </div>
   );
 }

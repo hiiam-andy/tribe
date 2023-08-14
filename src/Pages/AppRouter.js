@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import PageMain from "./PageMain";
 import PageFavorites from "./PageFavorites";
+import PageEvents from "./PageEvents";
 import PageEvent from "./PageEvent";
 import PageChat from "./PageChat";
 import PageProfile from "./PageProfile";
@@ -13,7 +14,8 @@ export default function AppRouter() {
     <Routes>
       <Route path="/" element={<PageMain />} />
       <Route path="/favorites" element={<PageFavorites />} />
-      <Route path="/event" element={<PageEvent />} />
+      <Route path="/event" element={<PageEvents />} />
+      <Route path="/event/:id" element={<PageEvent />} />
       <Route path="/chat" element={<PageChat />} />
       <Route path="/profile" element={<PageProfile />} />
       <Route path="/settings" element={<PageSettings />} />

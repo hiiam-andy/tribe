@@ -1,0 +1,31 @@
+.navbar_mobile{
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  padding: 14px 0;
+  background-color: #eee9f8;
+  max-height: 60px;
+  height: 12%;
+  width: 100%;
+}
+.addBtn{
+  position:relative;
+  bottom:20px;
+}
+
+.nav_link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.nav_icon{
+  width: 12px;
+  height: 12px;
+}
+.nav_link.active{
+  background-color: #cec3f5;
+}
