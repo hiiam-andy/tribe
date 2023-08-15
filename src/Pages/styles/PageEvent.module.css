@@ -1,0 +1,13 @@
+.event_image{
+  position: relative;
+  height: 30%;
+}
+
+.btn_section{
+  position: fixed;
+  z-index: 2;
+}
+.back_btn{
+  background-color: transparent;
+  border-radius: 25%;
+}

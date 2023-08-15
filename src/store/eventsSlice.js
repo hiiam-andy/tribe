@@ -4,9 +4,9 @@ import { BASE_URL } from "../utils/constants";
 
 export const getEvents = createAsyncThunk(
   "events/getEvents",
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      const res = await axios(`${BASE_URL}/events/search`);
+      const res = await axios(`${BASE_URL}/events/search?page=${page}&size=10`);
       return res.data.content;
     } catch (err) {
       console.log(err);

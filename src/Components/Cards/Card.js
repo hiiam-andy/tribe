@@ -23,6 +23,11 @@ export default function Card({ id, image, title, place, date, inFav }) {
       <img
         className={style.image}
         src={`https://tribual.ru/api/v1/events/avatars/${image}`}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src =
+            "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+        }}
         alt="card"
       />
       <Link to={`/event/${id}`} className={style.info}>
