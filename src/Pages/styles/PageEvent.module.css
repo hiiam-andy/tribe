@@ -1,13 +1,62 @@
 .event_image{
   position: relative;
+  max-height: 360px;
+  min-height: 250px;
   height: 30%;
+  width:100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .btn_section{
-  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: absolute;
   z-index: 2;
+  padding: 32px 16px 0 16px;
 }
 .back_btn{
   background-color: transparent;
-  border-radius: 25%;
+  width:30px;
+  height: 30px;
+  border: none;
+  background-color: #fef7ff;
+  border-radius: 50%;
+}
+.heart{
+  width: 16px;
+  height: 16px;
+  fill:#fef7ff
+}
+.like{
+  fill:#ff5449
+}
+.description_container{
+  position: relative;
+  padding:16px ;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+.description_header{
+  width:70%;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+.organizer_photo{
+  position: absolute;
+  width:56px;
+  height: 56px;
+  border-radius: 50%;
+  z-index: 5;
+  top: -33px;
+  right:8%;
+}
+.description_organizer{
+  margin-bottom: 12px;
+  color:#46464f
 }
