@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Card from "./Card";
 import { getEvents } from "../../store/eventsSlice";
-import style from "./styles/Cards.module.css";
+import styles from "./styles/Cards.module.css";
+import MyButton from "../UI/MyButton/MyButton";
 
 export default function Cards() {
   const [page, setPage] = useState(0);
@@ -25,14 +26,16 @@ export default function Cards() {
   ));
 
   return (
-    <div className={style.cards}>
-      <div className={style.cards_wrapper}>{allEvents}</div>
-      {page === 1 ? (
-        <button onClick={() => setPage(page - 1)}>Назад</button>
-      ) : (
-        <button disabled>Назад</button>
-      )}
-      <button onClick={() => setPage(page + 1)}>Вперед</button>
+    <div className={styles.cards}>
+      <div className={styles.cards_wrapper}>{allEvents}</div>
+      <div className={styles.btn_wrapper}>
+        {page === 1 ? (
+          <MyButton onClick={() => setPage(page - 1)}>Назад</MyButton>
+        ) : (
+          <MyButton disabled>Назад</MyButton>
+        )}
+        <MyButton onClick={() => setPage(page + 1)}>Вперед</MyButton>
+      </div>
     </div>
   );
 }

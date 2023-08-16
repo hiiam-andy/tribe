@@ -1,0 +1,144 @@
+.event_wrapper{
+  display: flex;
+  flex-direction: column;
+}
+.event_image{
+  position: relative;
+  max-height: 360px;
+  min-height: 250px;
+  height: 30%;
+  width:100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.btn_section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  padding: 32px 16px 0 16px;
+}
+.back_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width:30px;
+  height: 30px;
+  border: none;
+  background-color: #fef7ff;
+  border-radius: 50%;
+}
+.heart{
+  width: 16px;
+  height: 16px;
+  fill:#fef7ff
+}
+.like{
+  fill:#ff5449
+}
+.description_container{
+  position: relative;
+  padding:16px ;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: #fef7ff;
+}
+.title_organizer_section{
+  position: relative;
+}
+.description_header{
+  width:70%;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+.organizer_photo{
+  position: absolute;
+  width:56px;
+  height: 56px;
+  border: 2px solid #fef7ff;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 5;
+  top: -47px;
+  right:8%;
+}
+.description_organizer_username{
+  margin-bottom: 12px;
+  color:#46464f
+}
+.description_label{
+  display: flex;
+  align-items: center;
+  }
+  .event_icon{
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+.place_date_section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.time_backward_section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.description_text{
+  margin-bottom: 12px;
+}
+.participant_geo_section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+.participant_label{
+  display: flex;
+  max-width: 50%;
+}
+.participant_avatar{
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fef7ff;
+  border-radius: 50%;
+}
+.participant_avatar:not(:first-child){
+  position: relative;
+  right:20%
+}
+.more_participant{
+  font-weight: 500;
+  color: #3b4cdc;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right:40%;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fef7ff;
+  border-radius: 50%;
+ background-color: #fff;
+}
+.geo{
+  width: 19px;
+  height: 29px;
+  fill:#fb3309;
+}
+
+.btn_container{
+  width: 100%;
+  max-width: 343px;
+}

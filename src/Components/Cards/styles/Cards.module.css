@@ -12,3 +12,8 @@
   max-width: 950px;
   
 }
+.btn_wrapper{
+  display: flex;
+  padding: 4px 0;
+}
+

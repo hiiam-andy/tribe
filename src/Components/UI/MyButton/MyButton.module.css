@@ -1,0 +1,9 @@
+.myBtn{
+  width:100%;
+  padding: 8px 16px;
+  border:none;
+  border-radius: 16px;
+  color: #dfe0ff;
+  background-color: #3b4cdc;
+  cursor: pointer;
+}
