@@ -13,6 +13,19 @@ import { Link } from "react-router-dom";
 export default function Card({ id, image, title, place, date, inFav }) {
   const [like, setLike] = useState(true);
 
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  let eventDate = "";
+  try {
+    eventDate = dateFormatter.format(new Date(date));
+  } catch (err) {
+    return <span>загружается</span>;
+  }
+
   return (
     <div className={style.card}>
       {like ? (
@@ -40,7 +53,7 @@ export default function Card({ id, image, title, place, date, inFav }) {
           </div>
           <div className={`${style.date} ${style.desc_info}`}>
             <BsCalendarCheck className={style.desc_icon} />
-            {date.substring(0, 10)}
+            {eventDate}
           </div>
           <div className={`${style.time} ${style.desc_info}`}>
             <MdWatch className={style.desc_icon} />
