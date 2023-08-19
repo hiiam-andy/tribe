@@ -1,10 +1,11 @@
 import { $authHost, $host } from "./index";
 import jwt_decode from "jwt-decode";
 
-export const registrationEmail = async (email, password) => {
+export const registrationEmail = async (email, password, username) => {
   const response = await $host.post("/auth/registration/email/code", {
     email,
     password,
+    username,
   });
   localStorage.setItem("refresh_token", response.data.refresh_token);
   localStorage.setItem("access_token", response.data.access_token);
@@ -21,7 +22,7 @@ export const loginEmail = async (email, password) => {
   return jwt_decode(response.data.access_token);
 };
 
-export const check = async () => {
+export const checkAuth = async () => {
   const response = await $authHost.get("/auth/token/refresh");
   localStorage.setItem("refresh_token", response.data.refresh_token);
   localStorage.setItem("access_token", response.data.access_token);

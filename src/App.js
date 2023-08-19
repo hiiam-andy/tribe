@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Pages/AppRouter";
 import { useDispatch } from "react-redux";
 
-import { check } from "./http/userApi";
+import { checkAuth } from "./http/userApi";
 import { setAuth } from "./store/authSlice";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     token &&
-      check().then(() => {
+      checkAuth().then(() => {
         dispatch(setAuth(true));
       });
   }, []);
