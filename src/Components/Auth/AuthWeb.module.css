@@ -1,0 +1,18 @@
+.auth_form{
+display: flex;
+flex-direction: column;
+padding: 15px;
+border: 2px solid grey;
+}
+.logo{
+  width: 92px;
+}
+.inputs{
+  display: flex;
+  flex-direction: column;
+}
+.form_input{
+padding: 5px 15px;
+border-radius: 16px;
+margin-bottom: 10px;
+}

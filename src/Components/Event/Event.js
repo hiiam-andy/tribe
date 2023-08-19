@@ -58,8 +58,6 @@ export default function PageEvent() {
   } catch (err) {
     return <span>загружается</span>;
   }
-
-  console.log(event.list.users_who_participants_of_event.length);
   return (
     <section className={styles.event_wrapper}>
       <div className={styles.btn_section}>
@@ -147,6 +145,7 @@ export default function PageEvent() {
               } else {
                 return (
                   <img
+                    key={user.participant_id}
                     className={styles.participant_avatar}
                     src={MockAvatar}
                     alt="avatar"

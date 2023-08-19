@@ -19,11 +19,16 @@ export default function Card({ id, image, title, place, date, inFav }) {
     year: "numeric",
   });
 
-  let eventDate = "";
+  let eventDate;
   try {
     eventDate = dateFormatter.format(new Date(date));
-  } catch (err) {
+  } catch {
     return <span>загружается</span>;
+  }
+
+  let eventImage;
+  if (image !== undefined && image.length > 1) {
+    eventImage = image[0];
   }
 
   return (
@@ -35,7 +40,7 @@ export default function Card({ id, image, title, place, date, inFav }) {
       )}
       <img
         className={style.image}
-        src={`https://tribual.ru/api/v1/events/avatars/${image}`}
+        src={`https://tribual.ru/api/v1/events/avatars/${eventImage}`}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;
           currentTarget.src =
@@ -43,7 +48,7 @@ export default function Card({ id, image, title, place, date, inFav }) {
         }}
         alt="card"
       />
-      <Link to={`/event/${id}`} className={style.info}>
+      <Link to={`/events/${id}`} className={style.info}>
         <div className={style.title}>
           <div className={style.title_text}>{title}</div>
         </div>

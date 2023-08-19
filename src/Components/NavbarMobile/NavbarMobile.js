@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
+  AUTH_ROUTE,
   CHAT_ROUTE,
   FAVORITES_ROUTE,
   MAIN_ROUTE,
@@ -46,6 +47,9 @@ export default function NavbarMobile() {
         <div className={styles.nav_link}>
           <img src={Profile} alt="Profile" className={styles.nav_icon} />
         </div>
+      </Link>
+      <Link to={AUTH_ROUTE}>
+        <button>Auth</button>
       </Link>
     </div>
   );

@@ -7,3 +7,9 @@
   background-color: #3b4cdc;
   cursor: pointer;
 }
+.myBtn:hover{
+  background-color: #3b4bdcdc;
+}
+.myBtn:disabled{
+  background-color: #3b4bdc94;
+}

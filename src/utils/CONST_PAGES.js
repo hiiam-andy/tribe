@@ -1,7 +1,11 @@
+export const USER_ROUTE = "/user";
+export const AUTH_ROUTE = "/auth";
+export const LOGIN_ROUTE = "/login";
+
 export const MAIN_ROUTE = "/main";
-export const FAVORITES_ROUTE = "/favorites";
-export const EVENTS_ROUTE = "/event";
+export const FAVORITES_ROUTE = "/favorite";
+export const EVENTS_ROUTE = "/events";
 export const PROFILE_ROUTE = "/profile";
 export const CHAT_ROUTE = "/chat";
 export const SETTINGS_ROUTE = "/settings";
-export const EVENT_ROUTE = "/event/:id";
+export const EVENT_ROUTE = "/events/:id";
