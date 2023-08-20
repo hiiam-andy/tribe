@@ -6,7 +6,7 @@ export const getEvents = createAsyncThunk(
   "events/getEvents",
   async (page, thunkAPI) => {
     try {
-      const res = await axios(`${BASE_URL}/events/search?page=${page}&size=16`);
+      const res = await axios(`${BASE_URL}/events/search?page=${page}&size=15`);
       return res.data.content;
     } catch (err) {
       console.log(err);

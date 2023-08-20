@@ -15,6 +15,7 @@ export default function Cards() {
 
   useEffect(() => {
     dispatch(getEvents(page));
+    console.log("загрузились евенты");
   }, [page]);
 
   const allEvents = events.list.map((event) => (
