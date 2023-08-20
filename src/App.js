@@ -4,8 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Pages/AppRouter";
 import { useDispatch } from "react-redux";
 
-import { checkAuth } from "./http/userApi";
 import { setAuth } from "./store/authSlice";
+import { checkAuth } from "./Components/Auth/http/userApi";
 
 function App() {
   const dispatch = useDispatch();

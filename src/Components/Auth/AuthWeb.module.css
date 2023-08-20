@@ -1,35 +1,83 @@
 .auth_container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  max-width: 470px;
+  margin: auto;
 }
-
 .auth_form{
-  width: 470px;
+  width: 100%;
 display: flex;
 flex-direction: column;
-padding: 32px 40px;
+padding: 32px;
 border: 2px solid grey;
 border-radius: 25px;
 align-self: center;
+background-color: #FEF7FF;
 }
 .logo{
   align-self: center;
   width: 92px;
 }
-.auth_method_heading{
+.auth_heading{
   font-weight: 700;
   font-size: 22px;
   line-height: 28px;
   margin-bottom: 16px;
 }
-.inputs{
+.step_section{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
-.form_input{
-padding: 5px 15px;
+.step1_wrapper{
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+
+.input_wrapper{
+display: flex;
+align-items: center;
+width:235px;
+height: 36px;
+margin-right: 16px;
+padding: 10px 16px;
+border: 1px solid #E3E1EC;
 border-radius: 16px;
+background-color: #E3E1EC;
+overflow: hidden;
+}
+.input_wrapper:focus-within{
+  border-color: #3B4CDC;
+  background-color: #FEF7FF;
+}
+.input_wrapper.step2{
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+.step1_btn_wrapper{
+width: 40%
+}
+.login_registration_section{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+.login_registration_btn{
+font-weight: 400;
+margin-left: 16px;
+color:#2F89FC;
+cursor: pointer;
+}
+
+.form_input{
+border: none;
+background-color: transparent;
+width: 100%;
+}
+
+.login_btn{
+  width:139px
 }
 
