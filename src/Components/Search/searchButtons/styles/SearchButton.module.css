@@ -11,3 +11,6 @@ white-space: nowrap;
 .searchButton:active{
   background-color: #5837F333
 }
+.searchButton.active{
+  background-color: #5837F333
+}

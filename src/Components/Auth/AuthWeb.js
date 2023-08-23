@@ -14,6 +14,7 @@ import styles from "./AuthWeb.module.css";
 import AuthStep1 from "./AuthStep1";
 import AuthStep2 from "./AuthStep2";
 import AuthStep3 from "./AuthStep3";
+import AuthStep4 from "./AuthStep4";
 
 //step1 - первое окно ввода телефона или пароля
 //step2 - окно с юзернеймом и паролем, если введен емейл
@@ -53,7 +54,8 @@ export default function Auth() {
   const [showCheck, setShowCheck] = useState(false);
 
   //переключение логин/регистрация
-  const [loginOrRegistration, setLoginOrRegistration] = useState(false);
+  const [loginOrRegistrationToggle, setLoginOrRegistrationToggle] =
+    useState(false);
 
   //проверка поля ввода первого экрана
   const CheckAuthMethod = (checkMethodInput) => {
@@ -78,17 +80,23 @@ export default function Auth() {
     username
   ) => {
     try {
-      const res = await registrationEmail(
-        phoneOrEmailInput,
-        password,
-        username
-      );
-      alert("одноразовый код " + res.code);
-      setRegistrantId(res.registrant_id);
-      setConfirmCode(res.code);
-      return res;
+      if (password === checkPassword) {
+        const res = await registrationEmail(
+          phoneOrEmailInput,
+          password,
+          username
+        );
+        console.log(res.code);
+        setRegistrantId(res.registrant_id);
+        setConfirmCode(res.code);
+        setStep(3);
+        alert("одноразовый код в консоли");
+        return res;
+      } else {
+        alert("Пароли не совпадают");
+      }
     } catch (err) {
-      alert(err.response.data.error_message);
+      alert(`пользователь с email ${phoneOrEmailInput} уже существует`);
     }
   };
 
@@ -96,6 +104,7 @@ export default function Auth() {
   const confirmRegistration = async (registrantId, confirmCode) => {
     try {
       const res = await confirmRegistrationEmail(registrantId, confirmCode);
+      setStep(4);
       return res;
     } catch (err) {
       console.log(err);
@@ -142,24 +151,25 @@ export default function Auth() {
 
         {step === 1 && (
           <AuthStep1
-            loginOrRegistration={loginOrRegistration}
+            loginOrRegistrationToggle={loginOrRegistrationToggle}
+            setLoginOrRegistrationToggle={setLoginOrRegistrationToggle}
             checkMethodInput={checkMethodInput}
             setCheckMethodInput={setCheckMethodInput}
+            phoneOrEmailInput={phoneOrEmailInput}
             setPhoneOrEmailInput={setPhoneOrEmailInput}
             CheckAuthMethod={CheckAuthMethod}
             checkMethodResult={checkMethodResult}
             setStep={setStep}
-            setLoginOrRegistration={setLoginOrRegistration}
           />
         )}
 
         {step === 2 && (
           <AuthStep2
             username={username}
+            loginOrRegistrationToggle={loginOrRegistrationToggle}
             show={show}
             password={password}
             checkPassword={checkPassword}
-            loginOrRegistration={loginOrRegistration}
             setUsername={setUsername}
             setPassword={setPassword}
             setShow={setShow}
@@ -181,8 +191,12 @@ export default function Auth() {
             setConfirmCode={setConfirmCode}
             confirmRegistration={confirmRegistration}
             registrantId={registrantId}
+            registrationWithEmail={registrationWithEmail}
+            password={password}
+            username={username}
           />
         )}
+        {step === 4 && <AuthStep4 />}
       </div>
     </div>
   );

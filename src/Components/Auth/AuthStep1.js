@@ -4,23 +4,35 @@ import MyButton from "../UI/MyButton/MyButton";
 import CloseIcon from "../../Images/searchClose.svg";
 
 import styles from "./AuthWeb.module.css";
+import { checkEmail } from "./http/userApi";
 
 export default function AuthStep1({
-  loginOrRegistration,
+  loginOrRegistrationToggle,
   checkMethodInput,
   CheckAuthMethod,
   checkMethodResult,
+  phoneOrEmailInput,
 
   setCheckMethodInput,
-  setLoginOrRegistration,
+  setLoginOrRegistrationToggle,
   setPhoneOrEmailInput,
   setStep,
 }) {
+  const registrationWithEmail = async (phoneOrEmailInput) => {
+    const res = await checkEmail(phoneOrEmailInput);
+    if (!res) {
+      setStep(2);
+    } else {
+      alert("пользователь с таким email существует");
+    }
+  };
+
   return (
     <>
       <h1 className={styles.auth_heading}>
-        {!loginOrRegistration ? "Регистрация" : "Авторизация"}
+        {!loginOrRegistrationToggle ? "Регистрация" : "Авторизация"}
       </h1>
+
       <div className={styles.step1_wrapper}>
         <div className={[styles.input_wrapper].join(" ")}>
           <input
@@ -29,10 +41,11 @@ export default function AuthStep1({
             value={checkMethodInput}
             onChange={(e) => {
               setCheckMethodInput(e.target.value);
-              setPhoneOrEmailInput(e.target.value);
+              setPhoneOrEmailInput(e.target.value.toLowerCase());
             }}
             onKeyDown={() => CheckAuthMethod(checkMethodInput)}
           />
+
           {checkMethodInput.length > 0 && (
             <img
               src={CloseIcon}
@@ -46,29 +59,37 @@ export default function AuthStep1({
           {checkMethodResult === "phone" && (
             <MyButton onClick={() => setStep(3)}>Далее</MyButton>
           )}
+
           {checkMethodResult === "email" && (
-            <MyButton onClick={() => setStep(2)}>Далее</MyButton>
+            <MyButton
+              onClick={() => {
+                !loginOrRegistrationToggle
+                  ? registrationWithEmail(phoneOrEmailInput)
+                  : setStep(2);
+              }}
+            >
+              Далее
+            </MyButton>
           )}
+
           {checkMethodResult === "empty" && (
-            <MyButton onClick={() => console.log("заполните поле")}>
-              Далее
-            </MyButton>
+            <MyButton onClick={() => alert("заполните поле")}>Далее</MyButton>
           )}
+
           {checkMethodResult === "incorrect" && (
-            <MyButton onClick={() => console.log("неверные данные")}>
-              Далее
-            </MyButton>
+            <MyButton onClick={() => alert("неверные данные")}>Далее</MyButton>
           )}
         </div>
       </div>
+
       <div className={styles.login_registration_section}>
-        {!loginOrRegistration ? (
+        {!loginOrRegistrationToggle ? (
           <>
             Уже есть профиль?{" "}
             <span
               className={styles.login_registration_btn}
               onClick={() => {
-                setLoginOrRegistration(!loginOrRegistration);
+                setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
                 setStep(1);
               }}
             >
@@ -81,7 +102,7 @@ export default function AuthStep1({
             <span
               className={styles.login_registration_btn}
               onClick={() => {
-                setLoginOrRegistration(!loginOrRegistration);
+                setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
                 setStep(1);
               }}
             >

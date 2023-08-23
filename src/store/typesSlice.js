@@ -2,6 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
+const initialState = {
+  list: [],
+  selectedType: [],
+};
+
 export const getTypes = createAsyncThunk(
   "types/getTypes",
   async (_, thunkAPI) => {
@@ -17,8 +22,11 @@ export const getTypes = createAsyncThunk(
 
 const typeSlice = createSlice({
   name: "types",
-  initialState: {
-    list: [],
+  initialState,
+  reducers: {
+    setSelectedType: (state, action) => {
+      state.selectedType = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getTypes.fulfilled, (state, action) => {
@@ -27,4 +35,5 @@ const typeSlice = createSlice({
   },
 });
 
+export const { setSelectedType } = typeSlice.actions;
 export default typeSlice.reducer;

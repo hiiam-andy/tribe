@@ -7,11 +7,13 @@ if (localStorage.getItem("access_token")) {
 } else {
   authUser = "";
 }
+
 const initialState = {
   isAuth: false,
   authUser: authUser,
   test: null,
 };
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

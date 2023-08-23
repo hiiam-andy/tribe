@@ -3,44 +3,53 @@ import React from "react";
 import styles from "./AuthWeb.module.css";
 import MyButton from "../UI/MyButton/MyButton";
 import ShowPassword from "../../Images/showPassword.svg";
+import { checkUsername } from "./http/userApi";
 
 export default function AuthStep2({
   username,
   show,
   password,
   checkPassword,
-  loginOrRegistration,
+  loginOrRegistrationToggle,
   setUsername,
   setPassword,
   setShow,
   showCheck,
   setCheckPassword,
   setShowCheck,
-  setStep,
   registrationWithEmail,
   loginWithEmail,
   phoneOrEmailInput,
 }) {
+  const checkFreeUsername = async (username) => {
+    let res = await checkUsername(username);
+    if (!res) {
+      registrationWithEmail(phoneOrEmailInput, password, username);
+    } else {
+      alert("Пользователь с таким юзернеймом уже существует");
+    }
+  };
+
   return (
     <>
-      {!loginOrRegistration && (
+      {!loginOrRegistrationToggle && (
         <h1 className={styles.auth_heading}>
           Придумайте пароль и уникальное имя
         </h1>
       )}
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {!loginOrRegistration && (
+        {!loginOrRegistrationToggle && (
           <div className={[styles.input_wrapper, styles.step2].join(" ")}>
             @
             <input
               className={[styles.form_input].join(" ")}
               placeholder="Уникальное имя"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value.toLowerCase())}
             />
           </div>
         )}
-        {loginOrRegistration && (
+        {loginOrRegistrationToggle && (
           <h1 className={styles.auth_heading}>Введите пароль</h1>
         )}
         <div className={[styles.input_wrapper, styles.step2].join(" ")}>
@@ -51,12 +60,14 @@ export default function AuthStep2({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <label style={{ display: "flex", alignItems: "center" }}>
             <img src={ShowPassword} alt="show" onClick={() => setShow(!show)} />
             <input type="checkbox" style={{ display: "none" }} />
           </label>
         </div>
-        {!loginOrRegistration && (
+
+        {!loginOrRegistrationToggle && (
           <div className={[styles.input_wrapper, styles.step2].join(" ")}>
             <input
               className={[styles.form_input].join(" ")}
@@ -77,11 +88,10 @@ export default function AuthStep2({
         )}
       </div>
 
-      {!loginOrRegistration ? (
+      {!loginOrRegistrationToggle ? (
         <MyButton
           onClick={() => {
-            setStep(3);
-            registrationWithEmail(phoneOrEmailInput, password, username);
+            checkFreeUsername(username);
           }}
         >
           Продолжить

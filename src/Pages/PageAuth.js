@@ -3,7 +3,14 @@ import AuthWeb from "../Components/Auth/AuthWeb";
 
 export default function PageAuth() {
   return (
-    <section>
+    <section
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
       <AuthWeb />
     </section>
   );

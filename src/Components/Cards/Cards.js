@@ -15,19 +15,20 @@ export default function Cards() {
 
   useEffect(() => {
     dispatch(getEvents(page));
-    console.log("загрузились евенты");
   }, [page]);
 
-  const allEvents = events.list.map((event) => (
-    <Card
-      key={event.eventId}
-      id={event.eventId}
-      image={event.avatarUrl}
-      title={event.eventName}
-      place={event.eventAddress.city}
-      date={event.startTime}
-    />
-  ));
+  const allEvents = events.list.map((event) => {
+    return (
+      <Card
+        key={event.eventId}
+        id={event.eventId}
+        image={event.avatarUrl}
+        title={event.eventName}
+        place={event.eventAddress.city}
+        date={event.startTime}
+      />
+    );
+  });
 
   return (
     <div className={styles.cards}>

@@ -12,6 +12,9 @@ export default function AuthStep3({
   setConfirmCode,
   confirmRegistration,
   registrantId,
+  username,
+  password,
+  registrationWithEmail,
 }) {
   let stepVerification;
   if (checkMethodResult === "phone") {
@@ -72,7 +75,14 @@ export default function AuthStep3({
           >
             Далее
           </MyButton>
-          <div>Отправить еще</div>
+          <div
+            style={{ color: "blue" }}
+            onClick={() =>
+              registrationWithEmail(phoneOrEmailInput, password, username)
+            }
+          >
+            Отправить еще
+          </div>
         </div>
       </div>
     );

@@ -1,23 +1,51 @@
-import React, { useEffect } from "react";
-import SearchButton from "./SearchButton";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./styles/SearchButtons.module.css";
-import { getTypes } from "../../../store/typesSlice";
+import { getTypes, setSelectedType } from "../../../store/typesSlice";
+import SearchButton from "./SearchButton";
 
 export default function SearchButtonsItem() {
   const dispatch = useDispatch();
-  const { types } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getTypes());
   }, [dispatch]);
+  const { types } = useSelector((state) => state);
 
-  const allTypes = types.list.map((type) => {
+  const [selectedTypesFromComponent, setSelectedTypesFromComponent] = useState(
+    []
+  );
+
+  const addToArray = (e) => {
+    if (
+      e.target.checked &&
+      !selectedTypesFromComponent.includes(e.target.name)
+    ) {
+      setSelectedTypesFromComponent([
+        ...selectedTypesFromComponent,
+        e.target.name,
+      ]);
+      dispatch(setSelectedType(selectedTypesFromComponent));
+    } else {
+      setSelectedTypesFromComponent(
+        selectedTypesFromComponent.filter((el) => el !== e.target.name)
+      );
+      dispatch(setSelectedType(selectedTypesFromComponent));
+    }
+  };
+
+  const allTypes = types.list.map(({ id, type_name }) => {
     return (
-      <SearchButton key={type.id} style={{ margin: "0 6px" }}>
-        {type.type_name}
-      </SearchButton>
+      <SearchButton
+        key={id}
+        name={type_name}
+        onClick={(e) => {
+          addToArray(e);
+        }}
+        readOnly={true}
+        checked={types.selectedType.includes(type_name)}
+      />
     );
   });
   return <div className={styles.searchButtons_section}>{allTypes}</div>;

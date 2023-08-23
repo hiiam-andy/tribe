@@ -32,6 +32,7 @@ export default function PageEvent() {
   const { event } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getEvent(id));
+    console.log("загрузился ивент");
   }, [dispatch, id]);
 
   //Аксиос

@@ -6,7 +6,7 @@ import filter from "../../../Images/searchFilter.svg";
 import styles from "./SearchInput.module.css";
 
 export default function SearchInput() {
-  const [value, setValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   return (
     <div className={styles.sectionSearch_input}>
       <div className={styles.search_block}>
@@ -14,15 +14,19 @@ export default function SearchInput() {
         <input
           className={styles.search_input}
           placeholder="Поиск..."
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
         />
-        <img
-          src={close}
-          alt="close"
-          className={styles.close_icon}
-          onClick={() => setValue("")}
-        />
+        {searchValue.length > 0 && (
+          <img
+            src={close}
+            alt="close"
+            className={styles.close_icon}
+            onClick={() => setSearchValue("")}
+          />
+        )}
       </div>
       <img src={filter} alt="filter" className={styles.filter_icon} />
     </div>
