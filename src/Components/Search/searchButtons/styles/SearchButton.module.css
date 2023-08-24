@@ -7,10 +7,12 @@ border-radius: 32px;
 background-color: #fff;
 cursor: pointer;
 white-space: nowrap;
+transition: background-color 0.2s;
 }
-.searchButton:active{
-  background-color: #5837F333
+.searchButton:hover{
+  background-color: #8165fc0e
 }
 .searchButton.active{
+  color:#1b1b1f;
   background-color: #5837F333
 }

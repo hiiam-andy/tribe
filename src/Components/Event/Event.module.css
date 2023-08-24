@@ -101,7 +101,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 0;
 }
 .participant_label{
   display: flex;
@@ -114,9 +114,13 @@
   border: 2px solid #fef7ff;
   border-radius: 50%;
 }
-.participant_avatar:not(:first-child){
+.participant_avatar:nth-child(2){
   position: relative;
-  right:20%
+  right:14%
+}
+.participant_avatar:nth-child(3){
+  position: relative;
+  right:28%
 }
 .more_participant{
   font-weight: 500;

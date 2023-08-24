@@ -8,12 +8,10 @@
   max-height: 60px;
   height: 12%;
   width: 100%;
+  opacity: .95;
+  backdrop-filter: blur(10px);
+ 
 }
-.addBtn{
-  position:relative;
-  bottom:20px;
-}
-
 .nav_link{
   display: flex;
   justify-content: center;
@@ -22,18 +20,24 @@
   height: 24px;
   border-radius: 50%;
 }
-
-.nav_icon{
-  width: 12px;
-  height: 12px;
-}
-.nav_icon path{
-  fill: aqua;
-}
-
-.nav_icon:hover{
-  fill: var(--blue)
-}
 .nav_link.active{
   background-color: var(--link-active);
 }
+.nav_icon{
+  width: 14px;
+  height: 14px;
+}
+.nav_icon path{
+fill: #5B5D72
+}
+.nav_link:hover .nav_icon path,
+.nav_link.active .nav_icon path{
+  fill: var(--blue)
+}
+
+
+.addBtn{
+  position:relative;
+  bottom:20px;
+}
+

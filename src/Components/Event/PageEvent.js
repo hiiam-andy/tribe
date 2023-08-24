@@ -1,6 +1,6 @@
 import React from "react";
 
-import Event from "../Components/Event/Event";
+import Event from "./Event";
 
 export default function PageEvent() {
   return (

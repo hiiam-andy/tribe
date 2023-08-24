@@ -1,5 +1,5 @@
 import React from "react";
-import AuthWeb from "../Components/Auth/AuthWeb";
+import AuthWeb from "./AuthWeb";
 
 export default function PageAuth() {
   return (

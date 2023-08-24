@@ -9,9 +9,20 @@ import { MdWatch } from "react-icons/md";
 
 import style from "./styles/Card.module.css";
 import { Link } from "react-router-dom";
+import { addToFav } from "../../Favorites/favoriteSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Card({ id, image, title, place, date, inFav }) {
+export default function Card({ id, image, title, place, date }) {
+  const dispatch = useDispatch();
+  const { inFav } = useSelector((store) => store.fav);
+
   const [like, setLike] = useState(true);
+  const user_id = localStorage.getItem("user_id");
+
+  const addToFavorite = (user_id, event_id) => {
+    dispatch(addToFav(user_id, event_id));
+    setLike(!like);
+  };
 
   const dateFormatter = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -27,14 +38,19 @@ export default function Card({ id, image, title, place, date, inFav }) {
   }
 
   let eventImage;
-  if (image !== undefined && image.length > 1) {
+  if (image !== undefined && image.length >= 1) {
     eventImage = image[0];
   }
 
   return (
     <div className={style.card}>
       {like ? (
-        <BsHeart className={style.heart} onClick={() => setLike(!like)} />
+        <BsHeart
+          className={style.heart}
+          onClick={() => {
+            addToFavorite(user_id, id);
+          }}
+        />
       ) : (
         <BsHeartFill className={style.like} onClick={() => setLike(!like)} />
       )}
