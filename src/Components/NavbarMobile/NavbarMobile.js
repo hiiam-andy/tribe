@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   AUTH_ROUTE,
   CHAT_ROUTE,
@@ -8,10 +8,6 @@ import {
   PROFILE_ROUTE,
 } from "../../utils/CONST_PAGES";
 
-import Search from "../../Images/navSearch.svg";
-import Favourite from "../../Images/navFavorite.svg";
-import Chat from "../../Images/navChat.svg";
-import Profile from "../../Images/navProfile.svg";
 import Add from "../../Images/navAdd.svg";
 
 import styles from "./NavbarMobile.module.css";
@@ -19,38 +15,163 @@ import styles from "./NavbarMobile.module.css";
 export default function NavbarMobile() {
   return (
     <div className={styles.navbar_mobile}>
-      <Link to={MAIN_ROUTE}>
-        <div className={styles.nav_link}>
-          <img src={Search} alt="Search" className={styles.nav_icon} />
-        </div>
-      </Link>
+      <NavLink
+        to={MAIN_ROUTE}
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.active} ${styles.nav_link}`
+            : `${styles.nav_link}`
+        }
+      >
+        <svg
+          className={styles.nav_icon}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M4.66667 1.33334C2.82572 1.33334 1.33334 2.82572 1.33334 4.66667C1.33334 6.50761 2.82572 8.00001 4.66667 8.00001C5.58734 8.00001 6.41974 7.62768 7.02368 7.02368C7.62768 6.41974 8.00001 5.58734 8.00001 4.66667C8.00001 2.82572 6.50761 1.33334 4.66667 1.33334ZM0 4.66667C0 2.08934 2.08934 0 4.66667 0C7.24401 0 9.33335 2.08934 9.33335 4.66667C9.33335 5.71461 8.98735 6.68261 8.40421 7.46141L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L7.46141 8.40421C6.68261 8.98735 5.71461 9.33335 4.66667 9.33335C2.08934 9.33335 0 7.24401 0 4.66667Z"
+            fill="#3B4CDC"
+          />
+        </svg>
+      </NavLink>
 
-      <Link to={FAVORITES_ROUTE}>
-        <div className={styles.nav_link}>
-          <img src={Favourite} alt="Favourite" className={styles.nav_icon} />
-        </div>
-      </Link>
+      <NavLink
+        to={FAVORITES_ROUTE}
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.active} ${styles.nav_link}`
+            : `${styles.nav_link}`
+        }
+      >
+        <svg
+          className={styles.nav_icon}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.05634 9.84507C6.95775 9.03756 7.62441 8.42723 8.05634 8.01408C8.48826 7.60094 8.95775 7.11268 9.46479 6.5493C9.97183 5.98592 10.3192 5.48826 10.507 5.05634C10.7136 4.62441 10.8169 4.20188 10.8169 3.78873C10.8169 3.18779 10.6103 2.69014 10.1972 2.29577C9.80282 1.90141 9.30516 1.70423 8.70423 1.70423C8.23474 1.70423 7.79343 1.83568 7.38028 2.09859C6.98592 2.3615 6.71361 2.69953 6.56338 3.11268H5.43662C5.28639 2.69953 5.00469 2.3615 4.59155 2.09859C4.19718 1.83568 3.76526 1.70423 3.29577 1.70423C2.69484 1.70423 2.18779 1.90141 1.77465 2.29577C1.38028 2.69014 1.1831 3.18779 1.1831 3.78873C1.1831 4.20188 1.277 4.62441 1.46479 5.05634C1.67136 5.48826 2.02817 5.98592 2.53521 6.5493C3.04225 7.11268 3.51174 7.60094 3.94366 8.01408C4.37559 8.42723 5.04225 9.03756 5.94366 9.84507L6 9.90141L6.05634 9.84507ZM8.70423 0.492958C9.64319 0.492958 10.4225 0.812206 11.0423 1.4507C11.6808 2.0892 12 2.86854 12 3.78873C12 4.33333 11.8967 4.86854 11.6901 5.39437C11.4836 5.90141 11.0986 6.47418 10.5352 7.11268C9.99061 7.75117 9.49296 8.28639 9.04225 8.71831C8.59155 9.15023 7.86854 9.8169 6.87324 10.7183L6 11.507L5.12676 10.7465C3.83099 9.58216 2.89202 8.70892 2.30986 8.12676C1.74648 7.5446 1.22066 6.85915 0.732394 6.07042C0.244131 5.28169 0 4.52113 0 3.78873C0 2.86854 0.309859 2.0892 0.929577 1.4507C1.56808 0.812206 2.35681 0.492958 3.29577 0.492958C4.38498 0.492958 5.28639 0.915493 6 1.76056C6.71361 0.915493 7.61502 0.492958 8.70423 0.492958Z"
+            fill="#5B5D72"
+          />
+        </svg>
+      </NavLink>
 
-      <Link>
+      <NavLink>
         <div className={styles.addBtn}>
-          <img src={Add} alt="Add" />
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="1" y="1" width="38" height="38" rx="19" fill="#3B4CDC" />
+            <path
+              d="M20 27V13"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M13 20H27"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <rect
+              x="1"
+              y="1"
+              width="38"
+              height="38"
+              rx="19"
+              stroke="#FFFBFF"
+              strokeWidth="2"
+            />
+            <rect
+              x="1"
+              y="1"
+              width="38"
+              height="38"
+              rx="19"
+              stroke="#5837F3"
+              strokeOpacity="0.05"
+              strokeWidth="2"
+            />
+          </svg>
         </div>
-      </Link>
+      </NavLink>
 
-      <Link to={CHAT_ROUTE}>
-        <div className={styles.nav_link}>
-          <img src={Chat} alt="Chat" className={styles.nav_icon} />
-        </div>
-      </Link>
+      <NavLink
+        to={CHAT_ROUTE}
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.active} ${styles.nav_link}`
+            : `${styles.nav_link}`
+        }
+      >
+        <svg
+          className={styles.nav_icon}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 1.06227C8.70996 1.06227 10.9177 2.97436 10.9177 5.31136C10.9177 7.64836 8.70996 9.56044 6 9.56044C5.44424 9.57014 4.89086 9.4868 4.36364 9.314L3.71429 9.09305L3.22944 9.56894C2.69461 10.0592 2.11497 10.5001 1.49784 10.8862C1.47801 10.8916 1.45705 10.8916 1.43723 10.8862V10.8352C1.89451 9.66835 1.94023 8.38477 1.5671 7.18945C1.27634 6.61809 1.11395 5.99212 1.09091 5.35385C1.09091 2.99985 3.2987 1.10476 6.00866 1.10476M6 0C2.68398 0 0 2.38799 0 5.32835C0.0195538 6.10643 0.208487 6.87139 0.554112 7.57187C0.828222 8.54839 0.773559 9.58569 0.398268 10.5292C0.323967 10.752 0.322632 10.992 0.394452 11.2156C0.466272 11.4391 0.607637 11.635 0.79869 11.7756C0.989744 11.9163 1.22089 11.9947 1.45965 11.9997C1.69841 12.0048 1.93279 11.9364 2.12987 11.804C2.79754 11.3772 3.42358 10.8907 4 10.3508C4.64359 10.5657 5.32031 10.6692 6 10.6567C9.31602 10.6567 12 8.26872 12 5.32835C12 2.38799 9.31602 0 6 0Z"
+            fill="#5B5D72"
+          />
+          <path
+            d="M3.90005 6C4.23142 6 4.50005 5.74816 4.50005 5.4375C4.50005 5.12684 4.23142 4.875 3.90005 4.875C3.56868 4.875 3.30005 5.12684 3.30005 5.4375C3.30005 5.74816 3.56868 6 3.90005 6Z"
+            fill="#5B5D72"
+          />
+          <path
+            d="M6.00002 6C6.3314 6 6.60002 5.74816 6.60002 5.4375C6.60002 5.12684 6.3314 4.875 6.00002 4.875C5.66865 4.875 5.40002 5.12684 5.40002 5.4375C5.40002 5.74816 5.66865 6 6.00002 6Z"
+            fill="#5B5D72"
+          />
+          <path
+            d="M8.1 6C8.43137 6 8.7 5.74816 8.7 5.4375C8.7 5.12684 8.43137 4.875 8.1 4.875C7.76863 4.875 7.5 5.12684 7.5 5.4375C7.5 5.74816 7.76863 6 8.1 6Z"
+            fill="#5B5D72"
+          />
+        </svg>
+      </NavLink>
 
-      <Link to={PROFILE_ROUTE}>
-        <div className={styles.nav_link}>
-          <img src={Profile} alt="Profile" className={styles.nav_icon} />
-        </div>
-      </Link>
-      <Link to={AUTH_ROUTE}>
+      <NavLink
+        to={PROFILE_ROUTE}
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.active} ${styles.nav_link}`
+            : `${styles.nav_link}`
+        }
+      >
+        <svg
+          className={styles.nav_icon}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6 5.99999C4.6701 5.99999 3.58858 4.92359 3.58858 3.59999C3.58858 2.27639 4.6701 1.19999 6 1.19999C7.32991 1.19999 8.41143 2.27639 8.41143 3.59999C8.41143 4.92359 7.32991 5.99999 6 5.99999ZM8.26554 6.40378C9.22227 5.63758 9.77992 4.39856 9.57495 3.04196C9.33682 1.46816 8.02138 0.20879 6.43346 0.0251899C4.24207 -0.22861 2.38286 1.46939 2.38286 3.59999C2.38286 4.73399 2.91096 5.74438 3.73447 6.40378C1.71128 7.16038 0.234278 8.93699 0.00278044 11.3346C-0.0309792 11.6892 0.24694 12 0.605037 12C0.911891 12 1.17353 11.7696 1.20066 11.4654C1.44241 8.7876 3.50237 7.2 6 7.2C8.49764 7.2 10.5576 8.7876 10.7993 11.4654C10.8265 11.7696 11.0881 12 11.395 12C11.7531 12 12.031 11.6892 11.9972 11.3346C11.7657 8.93699 10.2887 7.16038 8.26554 6.40378Z"
+            fill="#5B5D72"
+          />
+        </svg>
+      </NavLink>
+      <NavLink to={AUTH_ROUTE}>
         <button>Auth</button>
-      </Link>
+      </NavLink>
     </div>
   );
 }

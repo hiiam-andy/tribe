@@ -5,13 +5,12 @@ let authUser;
 if (localStorage.getItem("access_token")) {
   authUser = jwt_decode(localStorage.getItem("access_token"));
 } else {
-  authUser = "";
+  authUser = {};
 }
 
 const initialState = {
   isAuth: false,
   authUser: authUser,
-  test: null,
 };
 
 const authSlice = createSlice({

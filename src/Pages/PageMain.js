@@ -1,6 +1,6 @@
 import React from "react";
 import Search from "../Components/Search/Search";
-import Cards from "../Components/Cards/Cards";
+import Cards from "../Components/Event/Cards/Cards";
 import NavbarMobile from "../Components/NavbarMobile/NavbarMobile";
 
 export default function PageMain() {

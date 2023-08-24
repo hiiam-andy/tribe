@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./AuthWeb.module.css";
 import MyButton from "../UI/MyButton/MyButton";
 import ShowPassword from "../../Images/showPassword.svg";
-import { checkUsername } from "./http/userApi";
+import { checkUsername } from "./http/authApi";
 
 export default function AuthStep2({
   username,

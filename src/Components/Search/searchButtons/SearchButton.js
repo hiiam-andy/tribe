@@ -3,15 +3,14 @@ import styles from "./styles/SearchButton.module.css";
 
 export default function SearchButtons2(props) {
   let rootClass = [styles.searchButton];
-  if (props.checked) {
+  if (props.active) {
     rootClass = [styles.active, styles.searchButton].join(" ");
   } else {
     rootClass = styles.searchButton;
   }
   return (
-    <label className={rootClass}>
-      <span>{props.name}</span>
-      <input type="checkbox" {...props} style={{ display: "none" }} />
-    </label>
+    <button className={rootClass} {...props}>
+      {props.children}
+    </button>
   );
 }

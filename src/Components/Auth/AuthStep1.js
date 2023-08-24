@@ -4,7 +4,7 @@ import MyButton from "../UI/MyButton/MyButton";
 import CloseIcon from "../../Images/searchClose.svg";
 
 import styles from "./AuthWeb.module.css";
-import { checkEmail } from "./http/userApi";
+import { checkEmail } from "./http/authApi";
 
 export default function AuthStep1({
   loginOrRegistrationToggle,

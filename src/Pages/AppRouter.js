@@ -2,12 +2,12 @@ import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import PageMain from "./PageMain";
-import PageFavorites from "./PageFavorites";
-import PageEvents from "./PageEvents";
-import PageEvent from "./PageEvent";
+import PageFavorites from "../Components/Favorites/PageFavorites";
+import PageEvents from "../Components/Event/PageEvents";
+import PageEvent from "../Components/Event/PageEvent";
 import PageChat from "./PageChat";
-import PageProfile from "./PageProfile";
-import PageAuth from "./PageAuth";
+import PageProfile from "../Components/Profile/PageProfile";
+import PageAuth from "../Components/Auth/PageAuth";
 
 export default function AppRouter() {
   return (
@@ -15,8 +15,9 @@ export default function AppRouter() {
       <Route path="/main" element={<PageMain />} />
 
       <Route path="/auth" element={<PageAuth />} />
+      <Route path="/user" element={<PageProfile />} />
+      <Route path="/user/:id" element={<PageProfile />} />
 
-      <Route path="/profile" element={<PageProfile />} />
       <Route path="/favorite" element={<PageFavorites />} />
       <Route path="/chat" element={<PageChat />} />
       <Route path="/events" element={<PageEvents />} />

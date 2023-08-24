@@ -1,10 +1,9 @@
-import { $authHost, $host } from "./index";
+import { $authHost, $host } from "../../../utils/interceptor";
 import jwt_decode from "jwt-decode";
 
 //Проверить не занят ли емейл
 export const checkEmail = async (email) => {
   const res = await $host.get(`/user/email/check/${email}`);
-  console.log(res.data);
   return res.data;
 };
 
@@ -46,6 +45,7 @@ export const loginEmail = async (email, password) => {
     email,
     password,
   });
+  localStorage.setItem("user_id", res.data.user_id);
   localStorage.setItem("refresh_token", res.data.refresh_token);
   localStorage.setItem("access_token", res.data.access_token);
   return jwt_decode(res.data.access_token);

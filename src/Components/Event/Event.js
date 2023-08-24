@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEvent } from "../../store/eventSlice";
+import { getEvent } from "./eventSlice";
 import { BASE_URL } from "../../utils/constants";
-
-// import GetEvents from "../store/api/eventsApi";
 
 import {
   BsHeart,
@@ -14,9 +12,9 @@ import {
 } from "react-icons/bs";
 import { MdWatch } from "react-icons/md";
 import { GiBackwardTime } from "react-icons/gi";
-import { LiaLessThanSolid } from "react-icons/lia";
 import MockAvatar from "../../Images/Babushkaboy.png";
 import FakeAvatar from "../../Images/fakeAvatar.png";
+import BackButton from "../../Images/backButton.svg";
 
 import styles from "./Event.module.css";
 import MyButton from "../../Components/UI/MyButton/MyButton";
@@ -26,26 +24,25 @@ export default function PageEvent() {
   const { id } = useParams();
   const [like, setLike] = useState(false);
 
-  // Редакс Туллкит
-
   const dispatch = useDispatch();
   const { event } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getEvent(id));
-    console.log("загрузился ивент");
   }, [dispatch, id]);
 
-  //Аксиос
+  let eventImage;
+  if (!event.list.event_photo) {
+    eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+  } else {
+    eventImage = `${BASE_URL}/events/avatars/${event.list.event_photo}`;
+  }
 
-  // const [event, setEvent] = useState([]);
-  // useEffect(() => {
-  //   fetchEvent();
-  // }, []);
-
-  // async function fetchEvent() {
-  //   const res = await GetEvents.getOneEvent(id);
-  //   setEvent(res);
-  // }
+  let avatarImage;
+  if (!event.list.organizer_photo) {
+    avatarImage = FakeAvatar;
+  } else {
+    avatarImage = `${BASE_URL}/user/avatar/${event.list.organizer_photo}`;
+  }
 
   const dateFormatter = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -53,18 +50,19 @@ export default function PageEvent() {
     year: "numeric",
   });
 
-  let eventDate = "";
+  let eventDate;
   try {
     eventDate = dateFormatter.format(new Date(event.list.start_time));
   } catch (err) {
     return <span>загружается</span>;
   }
+
   return (
     <section className={styles.event_wrapper}>
       <div className={styles.btn_section}>
-        <button className={styles.back_btn} onClick={() => navigate(-1)}>
-          <LiaLessThanSolid />
-        </button>
+        <div className={styles.back_btn}>
+          <img src={BackButton} alt="back" onClick={() => navigate(-1)} />
+        </div>
         {like ? (
           <BsHeart className={styles.heart} onClick={() => setLike(!like)} />
         ) : (
@@ -73,12 +71,13 @@ export default function PageEvent() {
       </div>
       <img
         className={styles.event_image}
-        src={`${BASE_URL}/events/avatars/${event.list.event_photo}`}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src =
-            "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
-        }}
+        src={eventImage}
+        // src={`${BASE_URL}/events/avatars/${event.list.event_photo}`}
+        // onError={({ currentTarget }) => {
+        //   currentTarget.onerror = null;
+        //   currentTarget.src =
+        //     "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+        // }}
         alt="event"
       />
       <div className={styles.description_container}>
@@ -86,11 +85,12 @@ export default function PageEvent() {
           <h1 className={styles.description_header}>{event.list.event_name}</h1>
           <img
             className={styles.organizer_photo}
-            src={`${BASE_URL}/user/avatar/${event.list.organizer_photo}`}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null;
-              currentTarget.src = FakeAvatar;
-            }}
+            src={avatarImage}
+            // src={`${BASE_URL}/user/avatar/${event.list.organizer_photo}`}
+            // onError={({ currentTarget }) => {
+            //   currentTarget.onerror = null;
+            //   currentTarget.src = FakeAvatar;
+            // }}
             alt="Организатор"
           />
         </div>

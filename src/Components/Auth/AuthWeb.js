@@ -8,7 +8,7 @@ import {
   confirmRegistrationEmail,
   loginEmail,
   registrationEmail,
-} from "./http/userApi";
+} from "./http/authApi";
 
 import styles from "./AuthWeb.module.css";
 import AuthStep1 from "./AuthStep1";
@@ -23,7 +23,7 @@ import AuthStep4 from "./AuthStep4";
 export default function Auth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth, authUser } = useSelector((state) => state.auth);
 
   //регулярки для проверки: телефон или емейл
   const regEmail =
@@ -86,7 +86,6 @@ export default function Auth() {
           password,
           username
         );
-        console.log(res.code);
         setRegistrantId(res.registrant_id);
         setConfirmCode(res.code);
         setStep(3);
@@ -136,7 +135,7 @@ export default function Auth() {
     <div className={styles.auth_container}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Link to={MAIN_ROUTE}>на главную</Link>
-        <button onClick={() => console.log(isAuth)}>isAuth?</button>
+        <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
         <button
           onClick={() => {
             logout();
