@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { setAuth } from "./Components/Auth/authSlice";
 import { checkAuth } from "./Components/Auth/http/authApi";
+import { checkAuth } from "./Components/Auth/http/authApi";
 
 function App() {
   const dispatch = useDispatch();

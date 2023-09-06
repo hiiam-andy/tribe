@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import PageMain from "./PageMain";
 import PageFavorites from "../Components/Favorites/PageFavorites";
-
 import PageEvent from "../Components/Event/PageEvent";
 import PageChat from "./PageChat";
 import PageProfile from "../Components/Profile/PageProfile";
