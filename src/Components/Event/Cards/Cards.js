@@ -39,6 +39,7 @@ export default function Cards() {
         ) : (
           <MyButton disabled>Назад</MyButton>
         )}
+        <p>Страница{page + 1}</p>
         <MyButton onClick={() => setPage(page + 1)}>Вперед</MyButton>
       </div>
     </div>

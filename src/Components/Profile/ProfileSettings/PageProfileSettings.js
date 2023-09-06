@@ -8,6 +8,7 @@ export default function PageProfileSettings() {
   return (
     <div style={{ backgroundColor: "#E3E1EC" }}>
       <img src={BackButton} alt="back" onClick={() => navigate(-1)} />
+      <h1>Настройки</h1>
     </div>
   );
 }

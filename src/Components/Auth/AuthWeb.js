@@ -15,6 +15,7 @@ import AuthStep1 from "./AuthStep1";
 import AuthStep2 from "./AuthStep2";
 import AuthStep3 from "./AuthStep3";
 import AuthStep4 from "./AuthStep4";
+import { deleteAccount } from "../Profile/http/userApi";
 
 //step1 - первое окно ввода телефона или пароля
 //step2 - окно с юзернеймом и паролем, если введен емейл
@@ -28,7 +29,7 @@ export default function Auth() {
   //регулярки для проверки: телефон или емейл
   const regEmail =
     // eslint-disable-next-line no-useless-escape
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{1,})$/i;
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   const regPhone =
     // eslint-disable-next-line no-useless-escape
     /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
@@ -56,6 +57,15 @@ export default function Auth() {
   //переключение логин/регистрация
   const [loginOrRegistrationToggle, setLoginOrRegistrationToggle] =
     useState(false);
+
+  //всплывающие подсказки инпутов
+  const [tippy, setTippy] = useState("");
+  const [visibleTippy, setVisibleTippy] = useState(false);
+  const showTippy = (text) => {
+    setTippy(text);
+    setVisibleTippy(true);
+    setTimeout(() => setVisibleTippy(false), 3000);
+  };
 
   //проверка поля ввода первого экрана
   const CheckAuthMethod = (checkMethodInput) => {
@@ -89,13 +99,13 @@ export default function Auth() {
         setRegistrantId(res.registrant_id);
         setConfirmCode(res.code);
         setStep(3);
-        alert("одноразовый код в консоли");
+        showTippy("одноразовый код в консоли");
         return res;
       } else {
-        alert("Пароли не совпадают");
+        showTippy("Пароли не совпадают");
       }
     } catch (err) {
-      alert(`пользователь с email ${phoneOrEmailInput} уже существует`);
+      console.log(err);
     }
   };
 
@@ -124,6 +134,7 @@ export default function Auth() {
       alert("введите корректные логин и пароль");
     }
   };
+
   //разлогиниться(удаляются токены)
   const logout = () => {
     dispatch(setUser({}));
@@ -131,18 +142,56 @@ export default function Auth() {
     localStorage.clear();
   };
 
+  //удалить аккаунт
+  const removeAccount = async (user_id) => {
+    try {
+      await deleteAccount(user_id);
+      dispatch(setUser({}));
+      dispatch(setAuth(false));
+      localStorage.clear();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={styles.auth_container}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Link to={MAIN_ROUTE}>на главную</Link>
-        <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
-        <button
-          onClick={() => {
-            logout();
-          }}
-        >
-          logout
-        </button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Link to={MAIN_ROUTE}>на главную</Link>
+          <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
+          <button
+            onClick={() => {
+              setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
+            }}
+          >
+            toggle
+          </button>
+          <button
+            onClick={() => {
+              logout();
+            }}
+          >
+            logout
+          </button>
+          <button
+            onClick={() => removeAccount(localStorage.getItem("user_id"))}
+          >
+            удалить аккаунт
+          </button>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <button onClick={() => setStep(1)}>шаг1</button>
+          <button onClick={() => setStep(2)}>шаг2</button>
+          <button onClick={() => setStep(3)}>шаг3</button>
+          <button onClick={() => setStep(4)}>шаг4</button>
+        </div>
       </div>
 
       <div className={styles.auth_form}>
@@ -159,6 +208,9 @@ export default function Auth() {
             CheckAuthMethod={CheckAuthMethod}
             checkMethodResult={checkMethodResult}
             setStep={setStep}
+            tippy={tippy}
+            visibleTippy={visibleTippy}
+            showTippy={showTippy}
           />
         )}
 
@@ -179,6 +231,9 @@ export default function Auth() {
             registrationWithEmail={registrationWithEmail}
             loginWithEmail={loginWithEmail}
             phoneOrEmailInput={phoneOrEmailInput}
+            tippy={tippy}
+            visibleTippy={visibleTippy}
+            showTippy={showTippy}
           />
         )}
         {step === 3 && (

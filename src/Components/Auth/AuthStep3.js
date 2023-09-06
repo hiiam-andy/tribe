@@ -24,21 +24,22 @@ export default function AuthStep3({
           Введите код из смс
         </h1>
         <div className={[styles.input_wrapper, styles.input_step3].join(" ")}>
-          <input
-            placeholder="введите код из смс"
-            className={[styles.form_input].join(" ")}
-          />
+          <input maxLength={4} className={styles.form_input} />
         </div>
         <div>
-          <p>
-            {phoneOrEmailInput}
-            <span style={{ color: "blue" }} onClick={() => setStep(1)}>
-              {" "}
+          <div>
+            <p>{phoneOrEmailInput}</p>
+            <p style={{ color: "#2F89FC" }} onClick={() => setStep(1)}>
               другой телефон
-            </span>
-          </p>
-
-          <button>Далее</button>
+            </p>
+          </div>
+          <div>
+            <p>Не пришел код?</p>
+            <p style={{ color: "#2F89FC" }}>Отправить еще.</p>
+          </div>
+        </div>
+        <div>
+          <MyButton>Далее</MyButton>
         </div>
       </div>
     );
@@ -50,8 +51,8 @@ export default function AuthStep3({
         </h1>
         <div className={[styles.input_wrapper, styles.input_step3].join(" ")}>
           <input
-            className={[styles.form_input].join(" ")}
-            placeholder="введите код"
+            maxLength={4}
+            className={styles.form_input}
             value={confirmCode}
             onChange={(e) => setConfirmCode(e.target.value)}
           />

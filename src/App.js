@@ -9,14 +9,14 @@ import { checkAuth } from "./Components/Auth/http/authApi";
 
 function App() {
   const dispatch = useDispatch();
-  let token = localStorage.getItem("access_token");
 
   useEffect(() => {
-    token &&
+    if (localStorage.getItem("access_token")) {
       checkAuth().then(() => {
         dispatch(setAuth(true));
       });
-  }, [dispatch, token]);
+    }
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

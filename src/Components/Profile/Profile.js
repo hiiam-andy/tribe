@@ -38,7 +38,6 @@ export default function Profile() {
   } else {
     interesting_event_type = "Нет интересов";
   }
-  console.log(interesting_event_type);
 
   return (
     <div>
