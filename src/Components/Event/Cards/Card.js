@@ -44,7 +44,7 @@ export default function Card({ id, image, title, place, date }) {
         <BsHeart
           className={style.heart}
           onClick={() => {
-            addToFavorite(user_id, id);
+            setLike(!like);
           }}
         />
       ) : (

@@ -10,7 +10,7 @@
   gap:  8px;
   justify-content: space-around;
   max-width: 950px;
-  
+  margin-bottom: 15px;
 }
 .btn_wrapper{
   display: flex;

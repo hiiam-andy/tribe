@@ -61,10 +61,12 @@ export default function PageEvent() {
     <section className={styles.event_wrapper}>
       <div className={styles.btn_section}>
         <div className={styles.back_btn}>
-          <img src={BackButton} alt="back" onClick={() => navigate(-1)} />
-        </div>
-        <div className={styles.back_btn}>
-          <img src={BackButton} alt="back" onClick={() => navigate(-1)} />
+          <img
+            src={BackButton}
+            alt="back"
+            onClick={() => navigate(-1)}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         {like ? (
           <BsHeart className={styles.heart} onClick={() => setLike(!like)} />
