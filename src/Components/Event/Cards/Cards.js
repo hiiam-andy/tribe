@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../eventsSlice";
-import { getEvents } from "../eventsSlice";
 
 import Card from "./Card";
-import MyButton from "../../UI/MyButton/MyButton";
 import MyButton from "../../UI/MyButton/MyButton";
 
 import styles from "./styles/Cards.module.css";

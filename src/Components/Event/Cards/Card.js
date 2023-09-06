@@ -10,10 +10,6 @@ import { MdWatch } from "react-icons/md";
 import style from "./styles/Card.module.css";
 import { Link } from "react-router-dom";
 import { addToFav } from "../../Favorites/favoriteSlice";
-import { useSelector } from "react-redux";
-
-export default function Card({ id, image, title, place, date }) {
-  const { inFav } = useSelector((store) => store.fav);
 
 export default function Card({ id, image, title, place, date }) {
   const [like, setLike] = useState(true);
@@ -38,7 +34,6 @@ export default function Card({ id, image, title, place, date }) {
   }
 
   let eventImage;
-  if (image !== undefined && image.length >= 1) {
   if (image !== undefined && image.length >= 1) {
     eventImage = image[0];
   }

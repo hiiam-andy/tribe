@@ -9,7 +9,6 @@ import {
   loginEmail,
   registrationEmail,
 } from "./http/authApi";
-} from "./http/authApi";
 
 import styles from "./AuthWeb.module.css";
 import AuthStep1 from "./AuthStep1";
@@ -25,7 +24,6 @@ import { deleteAccount } from "../Profile/http/userApi";
 export default function Auth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuth, authUser } = useSelector((state) => state.auth);
   const { isAuth, authUser } = useSelector((state) => state.auth);
 
   //регулярки для проверки: телефон или емейл

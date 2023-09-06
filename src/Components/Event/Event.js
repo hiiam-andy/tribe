@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEvent } from "./eventSlice";
-import { getEvent } from "./eventSlice";
 import { BASE_URL } from "../../utils/constants";
 
 import {
@@ -15,7 +14,6 @@ import { MdWatch } from "react-icons/md";
 import { GiBackwardTime } from "react-icons/gi";
 import MockAvatar from "../../Images/Babushkaboy.png";
 import FakeAvatar from "../../Images/fakeAvatar.png";
-import BackButton from "../../Images/backButton.svg";
 import BackButton from "../../Images/backButton.svg";
 
 import styles from "./Event.module.css";
@@ -38,19 +36,7 @@ export default function PageEvent() {
   } else {
     eventImage = `${BASE_URL}/events/avatars/${event.list.event_photo}`;
   }
-  let eventImage;
-  if (!event.list.event_photo) {
-    eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
-  } else {
-    eventImage = `${BASE_URL}/events/avatars/${event.list.event_photo}`;
-  }
 
-  let avatarImage;
-  if (!event.list.organizer_photo) {
-    avatarImage = FakeAvatar;
-  } else {
-    avatarImage = `${BASE_URL}/user/avatar/${event.list.organizer_photo}`;
-  }
   let avatarImage;
   if (!event.list.organizer_photo) {
     avatarImage = FakeAvatar;
@@ -64,7 +50,6 @@ export default function PageEvent() {
     year: "numeric",
   });
 
-  let eventDate;
   let eventDate;
   try {
     eventDate = dateFormatter.format(new Date(event.list.start_time));
