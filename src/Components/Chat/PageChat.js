@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarMobile from "../Components/NavbarMobile/NavbarMobile";
+import NavbarMobile from "../NavbarMobile/NavbarMobile";
 
 export default function PageChat() {
   return (

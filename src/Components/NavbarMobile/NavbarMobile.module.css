@@ -10,7 +10,6 @@
   width: 100%;
   opacity: .95;
   backdrop-filter: blur(10px);
- 
 }
 .nav_link{
   display: flex;
@@ -28,7 +27,7 @@
   height: 14px;
 }
 .nav_icon path{
-fill: #5B5D72
+  fill: #5B5D72
 }
 .nav_link:hover .nav_icon path,
 .nav_link.active .nav_icon path{
@@ -40,4 +39,8 @@ fill: #5B5D72
   position:relative;
   bottom:20px;
 }
-
+@media (min-width: 1024px) {
+.navbar_mobile{
+  display: none;
+}
+}

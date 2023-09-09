@@ -22,6 +22,11 @@ li {
 .container{
   padding: 127px 8px 66px ;
 }
+@media(min-width:1024px){
+  .container{
+    padding: 0 8px ;
+  }
+}
 a{
   text-decoration: none;
 }

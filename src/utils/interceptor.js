@@ -1,10 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "./constants";
 
-const $host = axios.create({
-  baseURL: BASE_URL,
-});
-
 const $authHost = axios.create({
   withCredentials: true,
   baseURL: BASE_URL,
@@ -42,4 +38,4 @@ $authHost.interceptors.response.use((config) => {
 //     throw error;
 //   }
 // );
-export { $host, $authHost };
+export { $authHost };

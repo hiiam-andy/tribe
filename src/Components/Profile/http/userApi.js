@@ -1,11 +1,12 @@
 import axios from "axios";
-import { $host } from "../../../utils/interceptor";
 import { BASE_URL } from "../../../utils/constants";
+
+const token = localStorage.getItem("access_token");
 
 //Проверить не занят ли емейл
 export const checkEmail = async (email) => {
   try {
-    const res = await $host.get(`/user/email/check/${email}`);
+    const res = await axios.get(`${BASE_URL}/user/email/check/${email}`);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -15,7 +16,7 @@ export const checkEmail = async (email) => {
 //проверить существует ли пользователь с юзернейм
 export const checkUsername = async (username) => {
   try {
-    const res = await $host.get(`/user/username/check/${username}`);
+    const res = await axios.get(`${BASE_URL}/user/username/check/${username}`);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -27,10 +28,31 @@ export const deleteAccount = async (user_id) => {
   try {
     await axios.delete(`${BASE_URL}/user/delete/${user_id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//Подписаться на пользователя
+export const subscribeToUser = async (follower_user_id, following_user_id) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/user/subscribe`,
+      {
+        follower_user_id,
+        following_user_id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res;
   } catch (err) {
     console.log(err);
   }

@@ -1,16 +1,19 @@
 .header{
+  display: flex;
+  align-items: center;
   padding: 3px 0;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 16px;
-  height: 48px;
+  min-height: 48px;
   background-color: black;
 }
 .header_container{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-self: center;
   padding: 0 2.2%;
+  width: 100%;
   max-width: 912px;
   margin-left: auto;
   margin-right: auto;
@@ -70,11 +73,9 @@
   cursor: pointer;
 }
 
-@media(max-width:428px){
-  .btn{
+@media(max-width:1024px){
+  .header{
     display: none;
   }
-  .addBtn{
-    display: flex;
-  }
 }
+

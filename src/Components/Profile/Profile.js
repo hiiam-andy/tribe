@@ -2,45 +2,51 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { NavLink, useParams } from "react-router-dom";
-import { getUser } from "./userSlice";
+import { getProfile } from "./userSlice";
 import FakeAvatar from "../../Images/fakeAvatar.png";
 import styles from "./Profile.module.css";
 import { SETTINGS_ROUTE } from "../../utils/CONST_PAGES";
+import { BASE_URL } from "../../utils/constants";
+import { subscribeToUser } from "./http/userApi";
 
 export default function Profile() {
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUser(id));
-  }, []);
+    dispatch(getProfile(id));
+  }, [id]);
   const { user } = useSelector((store) => store);
   const profile = user.userPage;
 
   let avatar_url;
   if (profile.avatar_url) {
-    avatar_url = profile.avatar_url;
+    avatar_url = `${BASE_URL}/user/avatar/${profile.avatar_url}`;
   } else {
     avatar_url = FakeAvatar;
   }
 
   let profileProfession;
-  if (profile.professions > 0) {
+  if (profile.professions?.length > 0) {
     profileProfession = profile.professions.map((el) => <span>{el}/</span>);
   } else {
     profileProfession = "Профессии не заданы";
   }
 
-  let interesting_event_type;
-  if (profile.interesting_event_type > 0) {
-    interesting_event_type = profile.interesting_event_type.map((el) => {
-      return <div key={el.id}>{el.type_name}</div>;
+  let interests;
+  if (profile.interests?.length > 0) {
+    interests = profile.interests.map((el) => {
+      return (
+        <span className={styles.interests} key={el}>
+          {el}
+        </span>
+      );
     });
   } else {
-    interesting_event_type = "Нет интересов";
+    interests = "Нет интересов";
   }
 
   return (
-    <div>
+    <div className={styles.section_profile}>
       <button onClick={() => console.log(profile)}>show</button>
       <div className={styles.profile_container}>
         <img src={avatar_url} alt="avatar" className={styles.profile_avatar} />
@@ -49,8 +55,8 @@ export default function Profile() {
             <h1 className={styles.profile_username}>
               {profile.username ? `@${profile.username}` : "Юзернейм не задан"}
             </h1>
-            <NavLink to={SETTINGS_ROUTE}>
-              <div>
+            {Number(localStorage.getItem("user_id")) === profile.user_id ? (
+              <NavLink to={SETTINGS_ROUTE}>
                 <svg
                   width="40"
                   height="40"
@@ -71,16 +77,55 @@ export default function Profile() {
                     </clipPath>
                   </defs>
                 </svg>
+              </NavLink>
+            ) : (
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  subscribeToUser(
+                    Number(localStorage.getItem("user_id")),
+                    profile.user_id
+                  )
+                }
+              >
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0_5734_16139)">
+                    <rect width="40" height="40" rx="20" fill="#3B4CDC" />
+                    <path
+                      d="M28.806 20.7317C28.1246 20.0387 27.2239 19.6167 26.268 19.5276C27.0932 18.7793 27.6139 17.699 27.6139 16.4923C27.6139 14.2347 25.7987 12.4053 23.5583 12.4053C21.4186 12.4053 19.6666 14.0757 19.5145 16.1928C21.4181 17.0228 22.754 18.9347 22.754 21.1546C22.754 21.9652 22.571 22.7574 22.2307 23.4763C22.7209 23.7345 23.1727 24.0682 23.5666 24.4687C24.5766 25.4936 25.1504 26.9107 25.1395 28.3555L25.1386 28.3849L25.1378 28.4099L25.102 29.0937H29.9598L29.9998 23.6791C30.0081 22.5747 29.579 21.5155 28.806 20.7317Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M20.1014 24.1906C20.9262 23.4427 21.4486 22.362 21.4486 21.1553C21.4486 18.8973 19.6326 17.0674 17.3926 17.0674C15.1522 17.0674 13.3366 18.8973 13.3366 21.1553C13.3366 22.3598 13.8569 23.4396 14.6803 24.1879C12.5715 24.3526 10.9058 26.1126 10.8905 28.2798L10.8505 29.0935H17.017H23.7936L23.8337 28.3408C23.8415 27.2368 23.4119 26.1776 22.6394 25.3938C21.9571 24.7004 21.0569 24.2797 20.1014 24.1906Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M12.616 14.0098V15.5284C12.616 16.1572 13.1232 16.6679 13.7475 16.6679C14.3728 16.6679 14.8791 16.1572 14.8791 15.5284V14.0098H16.384C17.0084 14.0098 17.5151 13.4987 17.5151 12.8694C17.5151 12.2406 17.0084 11.7294 16.384 11.7294H14.8791V10.2333C14.8791 9.60402 14.3728 9.09375 13.7475 9.09375C13.1232 9.09375 12.616 9.60402 12.616 10.2333V11.729H11.1311C10.5059 11.729 10 12.2401 10 12.869C10 13.4983 10.5059 14.0094 11.1311 14.0094L12.616 14.0098Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_5734_16139">
+                      <rect width="40" height="40" rx="20" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
               </div>
-            </NavLink>
-            <p>{profile.first_name ? profile.first_name : "Имя не задано"}</p>
-            <p>{profile.birthday ? profile.birthday : "Возраст не указан"}</p>
+            )}
+            <p>{profile.full_name ? profile.full_name : "Имя не задано"}</p>
+            <p>{profile.age ? profile.age : "Возраст не указан"}</p>
             <div>{profileProfession}</div>
           </div>
           <div>Здесь будут подписчики</div>
         </div>
+        <div className={styles.interests_wrapper}>{interests}</div>
       </div>
-      {/* {interesting_event_type} */}
     </div>
   );
 }

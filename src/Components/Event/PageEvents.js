@@ -1,11 +1,16 @@
 import React from "react";
-import Header from "../Header/Header";
+import Search from "../Search/Search";
+import Cards from "./Cards/Cards";
+import NavbarMobile from "../NavbarMobile/NavbarMobile";
 
 export default function PageEvents() {
   return (
-    <div>
-      <Header />
-      <h1>СОБЫТИЕ</h1>
+    <div className="app">
+      <Search />
+      <section className="container">
+        <Cards />
+      </section>
+      <NavbarMobile />
     </div>
   );
 }

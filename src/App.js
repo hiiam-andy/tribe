@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { setAuth } from "./Components/Auth/authSlice";
 import { checkAuth } from "./Components/Auth/http/authApi";
+import NavbarWeb from "./Components/NavbarWeb/NavbarWeb";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <NavbarWeb />
       <AppRouter />
     </BrowserRouter>
   );

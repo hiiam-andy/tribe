@@ -21,5 +21,12 @@
   font-weight: 400;
   margin-left: 2%;
 }
+@media(min-width:1024px){
+.sectionSearch{
+  position: static;
+  margin-bottom: 8px;
+}
+  
+}
 
 

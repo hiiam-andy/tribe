@@ -4,8 +4,8 @@ import {
   AUTH_ROUTE,
   CHAT_ROUTE,
   FAVORITES_ROUTE,
-  MAIN_ROUTE,
-  PROFILE_ROUTE,
+  EVENTS_ROUTE,
+  USER_ROUTE,
 } from "../../utils/CONST_PAGES";
 
 import styles from "./NavbarMobile.module.css";
@@ -14,7 +14,7 @@ export default function NavbarMobile() {
   return (
     <div className={styles.navbar_mobile}>
       <NavLink
-        to={MAIN_ROUTE}
+        to={EVENTS_ROUTE}
         className={({ isActive }) =>
           isActive
             ? `${styles.active} ${styles.nav_link}`
@@ -144,7 +144,7 @@ export default function NavbarMobile() {
       </NavLink>
 
       <NavLink
-        to={PROFILE_ROUTE + `/${localStorage.getItem("user_id")}`}
+        to={USER_ROUTE + `/${localStorage.getItem("user_id")}`}
         className={({ isActive }) =>
           isActive
             ? `${styles.active} ${styles.nav_link}`

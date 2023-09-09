@@ -1,3 +1,8 @@
+.section_profile{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 912px;
+}
 .profile_container{
   display: flex;
   justify-content: center;
@@ -25,4 +30,25 @@
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
+}
+
+.interests_wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.interests{
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 24px;
+  padding: 8px;
+  background-color: #e0e0f7;
+}
+
+@media(min-width: 1024px){
+  .profile_container{
+flex-direction: column;
+  }
+
 }

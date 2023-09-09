@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../../Images/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { MAIN_ROUTE } from "../../utils/CONST_PAGES";
+import { EVENTS_ROUTE } from "../../utils/CONST_PAGES";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth, setUser } from "./authSlice";
 import {
@@ -15,7 +15,6 @@ import AuthStep1 from "./AuthStep1";
 import AuthStep2 from "./AuthStep2";
 import AuthStep3 from "./AuthStep3";
 import AuthStep4 from "./AuthStep4";
-import { deleteAccount } from "../Profile/http/userApi";
 
 //step1 - первое окно ввода телефона или пароля
 //step2 - окно с юзернеймом и паролем, если введен емейл
@@ -129,28 +128,9 @@ export default function Auth() {
       dispatch(setUser(newUser));
       setPhoneOrEmailInput("");
       setPassword("");
-      navigate(MAIN_ROUTE);
+      navigate(EVENTS_ROUTE);
     } catch {
       alert("введите корректные логин и пароль");
-    }
-  };
-
-  //разлогиниться(удаляются токены)
-  const logout = () => {
-    dispatch(setUser({}));
-    dispatch(setAuth(false));
-    localStorage.clear();
-  };
-
-  //удалить аккаунт
-  const removeAccount = async (user_id) => {
-    try {
-      await deleteAccount(user_id);
-      dispatch(setUser({}));
-      dispatch(setAuth(false));
-      localStorage.clear();
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -164,7 +144,7 @@ export default function Auth() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Link to={MAIN_ROUTE}>на главную</Link>
+          <Link to={EVENTS_ROUTE}>на главную</Link>
           <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
           <button
             onClick={() => {
@@ -172,18 +152,6 @@ export default function Auth() {
             }}
           >
             toggle
-          </button>
-          <button
-            onClick={() => {
-              logout();
-            }}
-          >
-            logout
-          </button>
-          <button
-            onClick={() => removeAccount(localStorage.getItem("user_id"))}
-          >
-            удалить аккаунт
           </button>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

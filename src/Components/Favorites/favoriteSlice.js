@@ -4,9 +4,9 @@
 
 // const token = localStorage.getItem("access_token");
 
-// export const addToFav = createAsyncThunk(
-//   "addToFav/setAddToFav",
-//   async ({ user_id, event_id }, thunkAPI) => {
+// export const addToFavorite = createAsyncThunk(
+//   "addToFavorite/setAddToFavorite",
+//   async (user_id, event_id) => {
 //     try {
 //       const res = await axios.post(
 //         `${BASE_URL}events/favorite`,
@@ -22,23 +22,22 @@
 //       );
 //       return res;
 //     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
+//       return err;
 //     }
 //   }
 // );
 
-// const favSlice = createSlice({
-//   name: "fav",
+// const favoriteSlice = createSlice({
+//   name: "favorite",
 //   initialState: {
 //     inFavList: [],
-//     inFav: false,
 //   },
 //   extraReducers: (builder) => {
-//     builder.addCase(addToFav.fulfilled, (state, action) => {
+//     builder.addCase(addToFavorite.fulfilled, (state, action) => {
 //       state.inFavList = action.payload;
-//       console.log(state.inFavList);
+//       console.log("ok");
 //     });
 //   },
 // });
 
-// export default favSlice.reducer;
+// export default favoriteSlice.reducer;

@@ -1,6 +1,9 @@
 .event_wrapper{
   display: flex;
   flex-direction: column;
+  max-width: 1024px;
+  margin-right: auto;
+  margin-left: auto;
 }
 .event_image{
   position: relative;
@@ -41,6 +44,8 @@
   fill:#ff5449
 }
 .description_container{
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding:16px ;
   font-weight: 400;
@@ -68,6 +73,7 @@
   z-index: 5;
   top: -47px;
   right:8%;
+  cursor: pointer;
 }
 .description_organizer_username{
   margin-bottom: 12px;
@@ -143,6 +149,9 @@
 }
 
 .btn_container{
+  display: flex;
+  justify-content: center;
   width: 100%;
   max-width: 343px;
+  align-self: center;
 }

@@ -9,13 +9,26 @@ import MyButton from "../../UI/MyButton/MyButton";
 import styles from "./styles/Cards.module.css";
 
 export default function Cards() {
-  const [page, setPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(
+    Number(localStorage.getItem("currentPage")) || 0
+  );
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state);
 
+  const nextPage = (currentPage) => {
+    const page = currentPage + 1;
+    setCurrentPage(page);
+    localStorage.setItem("currentPage", page);
+  };
+  const previousPage = (currentPage) => {
+    const page = currentPage - 1;
+    setCurrentPage(page);
+    localStorage.setItem("currentPage", page);
+  };
+
   useEffect(() => {
-    dispatch(getEvents(page));
-  }, [dispatch, page]);
+    dispatch(getEvents(currentPage));
+  }, [currentPage]);
 
   const allEvents = events.list.map((event) => {
     return (
@@ -34,13 +47,17 @@ export default function Cards() {
     <div className={styles.cards}>
       <div className={styles.cards_wrapper}>{allEvents}</div>
       <div className={styles.btn_wrapper}>
-        {page === 1 ? (
-          <MyButton onClick={() => setPage(page - 1)}>Назад</MyButton>
-        ) : (
-          <MyButton disabled>Назад</MyButton>
-        )}
-        <p>Страница{page + 1}</p>
-        <MyButton onClick={() => setPage(page + 1)}>Вперед</MyButton>
+        <span>
+          {currentPage > 0 ? (
+            <MyButton onClick={() => previousPage(currentPage)}>Назад</MyButton>
+          ) : (
+            <MyButton disabled>Назад</MyButton>
+          )}
+        </span>
+        <p>Страница {currentPage + 1}</p>
+        <span>
+          <MyButton onClick={() => nextPage(currentPage)}>Вперед</MyButton>
+        </span>
       </div>
     </div>
   );

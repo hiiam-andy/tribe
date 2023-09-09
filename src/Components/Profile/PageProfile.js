@@ -6,7 +6,6 @@ import PageAuth from "../Auth/PageAuth";
 
 export default function PageProfile() {
   const { isAuth } = useSelector((state) => state.auth);
-  console.log(isAuth);
   return (
     <section>
       {isAuth ? (

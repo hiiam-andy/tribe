@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getEvent } from "./eventSlice";
 import { BASE_URL } from "../../utils/constants";
+import { USER_ROUTE } from "../../utils/CONST_PAGES";
 
 import {
   BsHeart,
@@ -18,6 +19,7 @@ import BackButton from "../../Images/backButton.svg";
 
 import styles from "./Event.module.css";
 import MyButton from "../../Components/UI/MyButton/MyButton";
+import { addToFavorite } from "../Favorites/http/favoritesApi";
 
 export default function PageEvent() {
   const navigate = useNavigate();
@@ -26,15 +28,21 @@ export default function PageEvent() {
 
   const dispatch = useDispatch();
   const { event } = useSelector((state) => state);
+
   useEffect(() => {
     dispatch(getEvent(id));
   }, [dispatch, id]);
+
+  const addFav = async (user_id, event_id) => {
+    addToFavorite(String(user_id), Number(event_id));
+  };
+  console.log(event.list);
 
   let eventImage;
   if (!event.list.event_photo) {
     eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
   } else {
-    eventImage = `${BASE_URL}/events/avatars/${event.list.event_photo}`;
+    eventImage = `${BASE_URL}/events/avatars/${event.list.event_photo[0]}`;
   }
 
   let avatarImage;
@@ -69,20 +77,27 @@ export default function PageEvent() {
           />
         </div>
         {like ? (
-          <BsHeart className={styles.heart} onClick={() => setLike(!like)} />
+          <BsHeartFill
+            className={styles.like}
+            onClick={() => addFav(localStorage.getItem("user_id"), id)}
+          />
         ) : (
-          <BsHeartFill className={styles.like} onClick={() => setLike(!like)} />
+          <BsHeart
+            onClick={() => addFav(localStorage.getItem("user_id"), id)}
+          />
         )}
       </div>
       <img className={styles.event_image} src={eventImage} alt="event" />
       <div className={styles.description_container}>
         <div className={styles.title_organizer_section}>
           <h1 className={styles.description_header}>{event.list.event_name}</h1>
-          <img
-            className={styles.organizer_photo}
-            src={avatarImage}
-            alt="Организатор"
-          />
+          <NavLink to={USER_ROUTE + `/${event.list.organizer_id}`}>
+            <img
+              className={styles.organizer_photo}
+              src={avatarImage}
+              alt="Организатор"
+            />
+          </NavLink>
         </div>
 
         <p className={styles.description_organizer_username}>
@@ -144,7 +159,7 @@ export default function PageEvent() {
                 );
               }
             })}
-            {event.list.users_who_participants_of_event.length > 2 && (
+            {event.list.users_who_participants_of_event?.length > 2 && (
               <div className={[styles.more_participant].join(" ")}>
                 +{event.list.users_who_participants_of_event.length - 2}
               </div>
@@ -154,7 +169,11 @@ export default function PageEvent() {
           <BsFillGeoAltFill className={styles.geo} />
         </div>
         <div className={styles.btn_container}>
-          <MyButton className={styles.btn}>Я пойду</MyButton>
+          {event.list.is_finished !== null ? (
+            <MyButton className={styles.btn}>Я пойду</MyButton>
+          ) : (
+            <div>УЖЕ ЗАВЕРШЕНО</div>
+          )}
         </div>
       </div>
     </section>
