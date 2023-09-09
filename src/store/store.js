@@ -15,7 +15,7 @@ export const store = configureStore({
     event: eventSlice,
     types: typesSlice,
     auth: authSlice,
-    favorite: favoriteSlice,
+    favorites: favoriteSlice,
   },
   devTools: true,
 });

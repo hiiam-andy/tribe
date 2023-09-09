@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import { BsFillGeoAltFill, BsCalendarCheck, BsHeart } from "react-icons/bs";
 import { MdWatch } from "react-icons/md";
 
-import style from "./styles/Card.module.css";
-import { Link } from "react-router-dom";
+import styles from "./styles/Card.module.css";
+import { NavLink } from "react-router-dom";
 
-export default function Card({ id, image, title, place, date }) {
+export default function Card({ id, image, title, place, date, type }) {
   const [like, setLike] = useState(true);
+
+  let cardStyle;
+  if (type === "favorites") {
+    cardStyle = styles.favorites;
+  } else if (type === "feed") {
+    cardStyle = styles.feed;
+  }
 
   const dateFormatter = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -27,17 +34,20 @@ export default function Card({ id, image, title, place, date }) {
   }
 
   return (
-    <div className={style.card}>
+    <div className={[styles.card, cardStyle].join(" ")}>
       <BsHeart
-        className={like ? style.heart : style.like}
+        className={like ? styles.heart : styles.like}
         onClick={() => {
           setLike(!like);
         }}
       />
-      <Link to={`/events/${id}`}>
-        <div className={style.image_wrapper}>
+      <NavLink
+        to={`/events/${id}`}
+        className={[styles.card_wrapper, cardStyle].join(" ")}
+      >
+        <div className={[styles.image_wrapper, cardStyle].join(" ")}>
           <img
-            className={style.image}
+            className={styles.image}
             src={`https://tribual.ru/api/v1/events/avatars/${eventImage}`}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null;
@@ -47,25 +57,25 @@ export default function Card({ id, image, title, place, date }) {
             alt="card"
           />
         </div>
-        <div className={style.info}>
-          <div className={style.title}>
-            <div className={style.title_text}>{title}</div>
+        <div className={styles.info}>
+          <div className={styles.title}>
+            <div className={styles.title_text}>{title}</div>
           </div>
-          <div className={style.description}>
-            <div className={`${style.place} ${style.desc_info}`}>
-              <BsFillGeoAltFill className={style.desc_icon} /> {place}
+          <div className={styles.description}>
+            <div className={`${styles.place} ${styles.desc_info}`}>
+              <BsFillGeoAltFill className={styles.desc_icon} /> {place}
             </div>
-            <div className={`${style.date} ${style.desc_info}`}>
-              <BsCalendarCheck className={style.desc_icon} />
-              {eventDate}
+            <div className={`${styles.date} ${styles.desc_info}`}>
+              <BsCalendarCheck className={styles.desc_icon} />
+              <span>{eventDate}</span>
             </div>
-            <div className={`${style.time} ${style.desc_info}`}>
-              <MdWatch className={style.desc_icon} />
+            <div className={`${styles.time} ${styles.desc_info}`}>
+              <MdWatch className={styles.desc_icon} />
               {String(date).substring(11, String(date).length - 3)}
             </div>
           </div>
         </div>
-      </Link>
+      </NavLink>
     </div>
   );
 }

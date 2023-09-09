@@ -9,11 +9,16 @@ import MyButton from "../../UI/MyButton/MyButton";
 import styles from "./styles/Cards.module.css";
 
 export default function Cards() {
+  const dispatch = useDispatch();
+  const { events } = useSelector((state) => state);
+
   const [currentPage, setCurrentPage] = useState(
     Number(localStorage.getItem("currentPage")) || 0
   );
-  const dispatch = useDispatch();
-  const { events } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(getEvents(currentPage));
+  }, [dispatch, currentPage]);
 
   const nextPage = (currentPage) => {
     const page = currentPage + 1;
@@ -26,10 +31,6 @@ export default function Cards() {
     localStorage.setItem("currentPage", page);
   };
 
-  useEffect(() => {
-    dispatch(getEvents(currentPage));
-  }, [currentPage]);
-
   const allEvents = events.list.map((event) => {
     return (
       <Card
@@ -39,6 +40,7 @@ export default function Cards() {
         title={event.eventName}
         place={event.eventAddress.city}
         date={event.startTime}
+        type={"feed"}
       />
     );
   });

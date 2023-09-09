@@ -24,7 +24,6 @@ import { addToFavorite } from "../Favorites/http/favoritesApi";
 export default function PageEvent() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [like, setLike] = useState(false);
 
   const dispatch = useDispatch();
   const { event } = useSelector((state) => state);
@@ -33,10 +32,10 @@ export default function PageEvent() {
     dispatch(getEvent(id));
   }, [dispatch, id]);
 
-  const addFav = async (user_id, event_id) => {
+  const addFav = (user_id, event_id) => {
     addToFavorite(String(user_id), Number(event_id));
   };
-  console.log(event.list);
+  console.log(event.list.favorite_event);
 
   let eventImage;
   if (!event.list.event_photo) {
@@ -76,16 +75,11 @@ export default function PageEvent() {
             style={{ cursor: "pointer" }}
           />
         </div>
-        {like ? (
-          <BsHeartFill
-            className={styles.like}
-            onClick={() => addFav(localStorage.getItem("user_id"), id)}
-          />
-        ) : (
-          <BsHeart
-            onClick={() => addFav(localStorage.getItem("user_id"), id)}
-          />
-        )}
+
+        <BsHeart
+          className={styles.like}
+          onClick={() => addFav(localStorage.getItem("user_id"), id)}
+        />
       </div>
       <img className={styles.event_image} src={eventImage} alt="event" />
       <div className={styles.description_container}>

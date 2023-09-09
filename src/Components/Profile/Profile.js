@@ -124,8 +124,8 @@ export default function Profile() {
           </div>
           <div>Здесь будут подписчики</div>
         </div>
-        <div className={styles.interests_wrapper}>{interests}</div>
       </div>
+      <div className={styles.interests_wrapper}>{interests}</div>
     </div>
   );
 }
