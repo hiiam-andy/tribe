@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "./favoriteSlice";
+import { setAuth } from "../Auth/authSlice";
+import { checkAuth } from "../Auth/http/authApi";
 import Card from "../Event/Cards/Card";
 import styles from "./styles/Favorites.module.css";
 
@@ -10,6 +12,11 @@ export default function Favorites() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      checkAuth().then(() => {
+        dispatch(setAuth(true));
+      });
+    }
     dispatch(getFavorites(localStorage.getItem("user_id")));
   }, [dispatch]);
 
@@ -26,5 +33,11 @@ export default function Favorites() {
       />
     );
   });
-  return <div className={styles.card_wrapper}>{res}</div>;
+  return (
+    <div className={styles.card_wrapper}>
+      <h1>Избранное</h1>
+      <div>{fav.length} событий</div>
+      {res}
+    </div>
+  );
 }

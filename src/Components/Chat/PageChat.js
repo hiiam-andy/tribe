@@ -8,10 +8,10 @@ export default function PageChat() {
   return (
     <>
       {isAuth ? (
-        <div>
+        <section>
           <h1>Здесь когда-то будет чат</h1>
           <NavbarMobile />
-        </div>
+        </section>
       ) : (
         <PageAuth />
       )}

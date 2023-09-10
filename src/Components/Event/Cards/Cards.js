@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../eventsSlice";
+import { setAuth } from "../../Auth/authSlice";
+import { checkAuth } from "../../Auth/http/authApi";
 
 import Card from "./Card";
 import MyButton from "../../UI/MyButton/MyButton";
@@ -17,6 +19,11 @@ export default function Cards() {
   );
 
   useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      checkAuth().then(() => {
+        dispatch(setAuth(true));
+      });
+    }
     dispatch(getEvents(currentPage));
   }, [dispatch, currentPage]);
 

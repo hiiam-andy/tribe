@@ -4,7 +4,7 @@
   position: relative;
   max-height: 269px;
   background-color: var(--bg);
-
+max-width: 650px;
   transition: all .3s ease;
 }
 .card.feed{
@@ -70,18 +70,23 @@
   margin-bottom: 6px;
 }
 .title_text{
-  max-width: 88%;
-  max-height: 50px;
   overflow: hidden;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
+}
+.title_text.feed{
+  max-width: 88%;
+  max-height: 50px;
   
 }
 .description{
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
+}
+.destription_place_date.favorites{
+  display: flex;
 }
 .desc_icon{
   margin-right: 8px;
@@ -91,4 +96,9 @@
 .desc_info{
   display: flex;
   margin-bottom: 9px;
+}
+@media(min-width:1024px){
+  .card_wrapper.favorites{
+    height: 180px;
+  }
 }

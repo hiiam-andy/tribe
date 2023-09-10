@@ -8,6 +8,7 @@ import {
   confirmRegistrationEmail,
   loginEmail,
   registrationEmail,
+  // registrationPhone,
 } from "./http/authApi";
 
 import styles from "./AuthWeb.module.css";
@@ -58,12 +59,12 @@ export default function Auth() {
     useState(false);
 
   //всплывающие подсказки инпутов
-  const [tippy, setTippy] = useState("");
-  const [visibleTippy, setVisibleTippy] = useState(false);
-  const showTippy = (text) => {
-    setTippy(text);
-    setVisibleTippy(true);
-    setTimeout(() => setVisibleTippy(false), 3000);
+  const [hint, setHint] = useState("");
+  const [visibleHint, setVisibleHint] = useState(false);
+  const showHint = (text) => {
+    setHint(text);
+    setVisibleHint(true);
+    setTimeout(() => setVisibleHint(false), 3000);
   };
 
   //проверка поля ввода первого экрана
@@ -91,17 +92,17 @@ export default function Auth() {
     try {
       if (password === checkPassword) {
         const res = await registrationEmail(
-          phoneOrEmailInput,
-          password,
-          username
+          String(phoneOrEmailInput),
+          String(password),
+          String(username)
         );
         setRegistrantId(res.registrant_id);
         setConfirmCode(res.code);
         setStep(3);
-        showTippy("одноразовый код в консоли");
+        alert("одноразовый код в консоли");
         return res;
       } else {
-        showTippy("Пароли не совпадают");
+        showHint("Пароли не совпадают");
       }
     } catch (err) {
       console.log(err);
@@ -129,10 +130,28 @@ export default function Auth() {
       setPhoneOrEmailInput("");
       setPassword("");
       navigate(EVENTS_ROUTE);
+      return;
     } catch {
       alert("введите корректные логин и пароль");
     }
   };
+
+  //регистрация через телефон
+  // const registrationWithPhone = async (phoneNumber) => {
+  //   try {
+  //       const res = await registrationPhone(
+  //         phoneNumber
+  //       );
+  //       setRegistrantId(res.registrant_id);
+  //       setConfirmCode(res.code);
+  //       setStep(3);
+  //       showTippy("одноразовый код в консоли");
+  //       return res;
+
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div className={styles.auth_container}>
@@ -176,9 +195,9 @@ export default function Auth() {
             CheckAuthMethod={CheckAuthMethod}
             checkMethodResult={checkMethodResult}
             setStep={setStep}
-            tippy={tippy}
-            visibleTippy={visibleTippy}
-            showTippy={showTippy}
+            hint={hint}
+            visibleHint={visibleHint}
+            showHint={showHint}
           />
         )}
 
@@ -199,9 +218,9 @@ export default function Auth() {
             registrationWithEmail={registrationWithEmail}
             loginWithEmail={loginWithEmail}
             phoneOrEmailInput={phoneOrEmailInput}
-            tippy={tippy}
-            visibleTippy={visibleTippy}
-            showTippy={showTippy}
+            hint={hint}
+            visibleHint={visibleHint}
+            showHint={showHint}
           />
         )}
         {step === 3 && (

@@ -24,6 +24,7 @@ export default function PageProfileSettings() {
       dispatch(setUser({}));
       dispatch(setAuth(false));
       localStorage.clear();
+      navigate(EVENTS_ROUTE);
     } catch (err) {
       console.log(err);
     }

@@ -9,11 +9,10 @@ export default function PageFavorites() {
   return (
     <>
       {isAuth ? (
-        <div>
-          <h1>ИЗБРАННОЕ</h1>
+        <section>
           <Favorites />
           <NavbarMobile />
-        </div>
+        </section>
       ) : (
         <PageAuth />
       )}

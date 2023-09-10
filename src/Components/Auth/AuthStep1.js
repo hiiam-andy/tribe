@@ -1,7 +1,5 @@
 //step1 - экран проверки способа входа телефон/емейл или подтверждение пароля при вхое с емейл
-import React from "react";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
+import React, { useState } from "react";
 
 import { checkEmail } from "../Profile/http/userApi";
 
@@ -21,31 +19,40 @@ export default function AuthStep1({
   setLoginOrRegistrationToggle,
   setPhoneOrEmailInput,
   setStep,
-
-  tippy,
-  visibleTippy,
-  showTippy,
 }) {
+  const [hint, setHint] = useState("");
+  const [visibleHint, setVisibleHint] = useState(false);
+  const showHint = (text) => {
+    setHint(text);
+    setVisibleHint(true);
+    setTimeout(() => {
+      setVisibleHint(false);
+    }, 3000);
+  };
+
   const registrationWithEmail = async (phoneOrEmailInput) => {
     const res = await checkEmail(phoneOrEmailInput);
     if (!res) {
       setStep(2);
     } else {
-      showTippy("пользователь с таким email существует");
+      showHint("пользователь с таким email существует");
     }
   };
 
-  const submitStepOne = (checkMethodResult) => {
+  const submitStepOne = async (checkMethodResult) => {
     if (checkMethodResult === "phone") {
       setStep(3);
     } else if (checkMethodResult === "email") {
-      !loginOrRegistrationToggle
-        ? registrationWithEmail(phoneOrEmailInput)
-        : setStep(2);
+      if (!loginOrRegistrationToggle) {
+        registrationWithEmail(phoneOrEmailInput);
+      } else {
+        const res = await checkEmail(phoneOrEmailInput);
+        res ? setStep(2) : showHint("пользователя с таким email не существует");
+      }
     } else if (checkMethodResult === "empty") {
-      showTippy("заполните поле");
+      showHint("заполните поле");
     } else if (checkMethodResult === "incorrect") {
-      showTippy("введите корректный телефон или email");
+      showHint("введите корректный телефон или email");
     }
   };
 
@@ -56,19 +63,18 @@ export default function AuthStep1({
       </h1>
 
       <div className={styles.step1_wrapper}>
-        <div className={[styles.input_wrapper].join(" ")}>
-          <Tippy content={tippy} visible={visibleTippy} offset={[10, 20]}>
-            <input
-              className={styles.form_input}
-              placeholder="Телефон/Почта"
-              value={checkMethodInput}
-              onChange={(e) => {
-                setCheckMethodInput(e.target.value);
-                setPhoneOrEmailInput(e.target.value.toLowerCase());
-              }}
-              onKeyDown={() => CheckAuthMethod(checkMethodInput)}
-            />
-          </Tippy>
+        <div className={styles.input_wrapper}>
+          <input
+            className={styles.form_input}
+            placeholder="Телефон/Почта"
+            value={checkMethodInput}
+            onChange={(e) => {
+              setCheckMethodInput(e.target.value);
+              setPhoneOrEmailInput(e.target.value.toLowerCase());
+            }}
+            onKeyUp={() => CheckAuthMethod(checkMethodInput)}
+            onBlur={() => CheckAuthMethod(checkMethodInput)}
+          />
 
           {checkMethodInput.length > 0 && (
             <img
@@ -86,6 +92,11 @@ export default function AuthStep1({
           </MyButton>
         </div>
       </div>
+      {visibleHint ? (
+        <div className={styles.hint}>{hint}</div>
+      ) : (
+        <div className={styles.hint}></div>
+      )}
 
       <div className={styles.login_registration_section}>
         <>

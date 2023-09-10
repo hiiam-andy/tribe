@@ -1,3 +1,6 @@
 .card_wrapper{
-  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 500px;
+  padding-bottom: 60px;
 }

@@ -13,6 +13,8 @@ export default function Card({ id, image, title, place, date, type }) {
     cardStyle = styles.favorites;
   } else if (type === "feed") {
     cardStyle = styles.feed;
+  } else if (type === "profile") {
+    cardStyle = styles.profile;
   }
 
   const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -29,7 +31,7 @@ export default function Card({ id, image, title, place, date, type }) {
   }
 
   let eventImage;
-  if (image !== undefined && image.length >= 1) {
+  if (image !== undefined && image.length > 0) {
     eventImage = image[0];
   }
 
@@ -41,6 +43,7 @@ export default function Card({ id, image, title, place, date, type }) {
           setLike(!like);
         }}
       />
+
       <NavLink
         to={`/events/${id}`}
         className={[styles.card_wrapper, cardStyle].join(" ")}
@@ -57,20 +60,32 @@ export default function Card({ id, image, title, place, date, type }) {
             alt="card"
           />
         </div>
+
         <div className={styles.info}>
           <div className={styles.title}>
-            <div className={styles.title_text}>{title}</div>
+            <div className={[styles.title_text, cardStyle].join(" ")}>
+              {title}
+            </div>
           </div>
+
           <div className={styles.description}>
-            <div className={`${styles.place} ${styles.desc_info}`}>
-              <BsFillGeoAltFill className={styles.desc_icon} /> {place}
+            <div
+              className={[styles.destription_place_date, cardStyle].join(" ")}
+            >
+              <div className={`${styles.place} ${styles.desc_info}`}>
+                <BsFillGeoAltFill className={styles.desc_icon} /> {place}
+              </div>
+
+              <div className={`${styles.date} ${styles.desc_info}`}>
+                <BsCalendarCheck className={styles.desc_icon} />
+
+                <span>{eventDate}</span>
+              </div>
             </div>
-            <div className={`${styles.date} ${styles.desc_info}`}>
-              <BsCalendarCheck className={styles.desc_icon} />
-              <span>{eventDate}</span>
-            </div>
+
             <div className={`${styles.time} ${styles.desc_info}`}>
               <MdWatch className={styles.desc_icon} />
+
               {String(date).substring(11, String(date).length - 3)}
             </div>
           </div>
