@@ -1,8 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../../../utils/constants";
 
-const token = localStorage.getItem("access_token");
-
 //Проверить не занят ли емейл
 export const checkEmail = async (email) => {
   try {
@@ -28,7 +26,7 @@ export const deleteAccount = async (user_id) => {
   try {
     await axios.delete(`${BASE_URL}/user/delete/${user_id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
     return;
@@ -48,7 +46,7 @@ export const subscribeToUser = async (follower_user_id, following_user_id) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       }
     );

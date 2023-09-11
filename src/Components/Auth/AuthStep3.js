@@ -3,19 +3,22 @@
 import React from "react";
 import styles from "./AuthWeb.module.css";
 import MyButton from "../UI/MyButton/MyButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setStep } from "./authSlice";
 
 export default function AuthStep3({
   checkMethodResult,
-  phoneOrEmailInput,
-  setStep,
   confirmCode,
   setConfirmCode,
   confirmRegistration,
   registrantId,
-  username,
-  password,
   registrationWithEmail,
 }) {
+  const { phoneOrEmailInput, password, username } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
   let stepVerification;
   if (checkMethodResult === "phone") {
     stepVerification = (
@@ -29,7 +32,10 @@ export default function AuthStep3({
         <div>
           <div>
             <p>{phoneOrEmailInput}</p>
-            <p style={{ color: "#2F89FC" }} onClick={() => setStep(1)}>
+            <p
+              style={{ color: "#2F89FC" }}
+              onClick={() => dispatch(setStep(1))}
+            >
               другой телефон
             </p>
           </div>

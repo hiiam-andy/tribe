@@ -3,7 +3,13 @@ import Logo from "../../Images/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { EVENTS_ROUTE } from "../../utils/CONST_PAGES";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuth, setUser } from "./authSlice";
+import {
+  setAuth,
+  setUser,
+  setPhoneOrEmailInput,
+  setPassword,
+  setStep,
+} from "./authSlice";
 import {
   confirmRegistrationEmail,
   loginEmail,
@@ -21,18 +27,26 @@ import AuthStep4 from "./AuthStep4";
 //step2 - окно с юзернеймом и паролем, если введен емейл
 //step3 - окно подтверждения для любого метода
 
+//регулярки для проверки: телефон или емейл
+const regEmail =
+  // eslint-disable-next-line no-useless-escape
+  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const regPhone =
+  // eslint-disable-next-line no-useless-escape
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
 export default function Auth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuth, authUser } = useSelector((state) => state.auth);
-
-  //регулярки для проверки: телефон или емейл
-  const regEmail =
-    // eslint-disable-next-line no-useless-escape
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  const regPhone =
-    // eslint-disable-next-line no-useless-escape
-    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  const {
+    isAuth,
+    authUser,
+    phoneOrEmailInput,
+    // username,
+    password,
+    step,
+    checkPassword,
+  } = useSelector((state) => state.auth);
 
   //данные для подтвердления регистрации через емейл
   const [registrantId, setRegistrantId] = useState(0);
@@ -41,18 +55,11 @@ export default function Auth() {
   const [checkMethodResult, setCheckMethodResult] = useState("empty");
 
   //шаги регистрации
-  const [step, setStep] = useState(1);
+  // const [step, setStep] = useState(1);
 
   //инпуты
-  const [phoneOrEmailInput, setPhoneOrEmailInput] = useState("");
-  const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
   const [confirmCode, setConfirmCode] = useState("");
-
-  //показать пароль
-  const [show, setShow] = useState(false);
-  const [showCheck, setShowCheck] = useState(false);
 
   //переключение логин/регистрация
   const [loginOrRegistrationToggle, setLoginOrRegistrationToggle] =
@@ -96,9 +103,9 @@ export default function Auth() {
           String(password),
           String(username)
         );
+        console.log(res.code);
         setRegistrantId(res.registrant_id);
-        setConfirmCode(res.code);
-        setStep(3);
+        dispatch(setStep(3));
         alert("одноразовый код в консоли");
         return res;
       } else {
@@ -124,15 +131,21 @@ export default function Auth() {
   const loginWithEmail = async (phoneOrEmailInput, password) => {
     try {
       const res = await loginEmail(phoneOrEmailInput, password);
-      const newUser = res;
-      dispatch(setAuth(true));
-      dispatch(setUser(newUser));
-      setPhoneOrEmailInput("");
-      setPassword("");
-      navigate(EVENTS_ROUTE);
+      if (res === 200) {
+        const newUser = res;
+        dispatch(setAuth(true));
+        dispatch(setUser(newUser));
+        dispatch(setPhoneOrEmailInput(""));
+        dispatch(setPassword(""));
+        setPassword("");
+        navigate(EVENTS_ROUTE);
+        window.location.reload();
+      } else {
+        alert("введите корректные логин и пароль");
+      }
       return;
-    } catch {
-      alert("введите корректные логин и пароль");
+    } catch (err) {
+      console.log("не вышло");
     }
   };
 
@@ -145,7 +158,7 @@ export default function Auth() {
   //       setRegistrantId(res.registrant_id);
   //       setConfirmCode(res.code);
   //       setStep(3);
-  //       showTippy("одноразовый код в консоли");
+  //       alert("одноразовый код в консоли");
   //       return res;
 
   //   } catch (err) {
@@ -174,10 +187,10 @@ export default function Auth() {
           </button>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button onClick={() => setStep(1)}>шаг1</button>
-          <button onClick={() => setStep(2)}>шаг2</button>
-          <button onClick={() => setStep(3)}>шаг3</button>
-          <button onClick={() => setStep(4)}>шаг4</button>
+          <button onClick={() => dispatch(setStep(1))}>шаг1</button>
+          <button onClick={() => dispatch(setStep(2))}>шаг2</button>
+          <button onClick={() => dispatch(setStep(3))}>шаг3</button>
+          <button onClick={() => dispatch(setStep(4))}>шаг4</button>
         </div>
       </div>
 
@@ -187,14 +200,12 @@ export default function Auth() {
         {step === 1 && (
           <AuthStep1
             loginOrRegistrationToggle={loginOrRegistrationToggle}
-            setLoginOrRegistrationToggle={setLoginOrRegistrationToggle}
             checkMethodInput={checkMethodInput}
-            setCheckMethodInput={setCheckMethodInput}
-            phoneOrEmailInput={phoneOrEmailInput}
-            setPhoneOrEmailInput={setPhoneOrEmailInput}
             CheckAuthMethod={CheckAuthMethod}
             checkMethodResult={checkMethodResult}
-            setStep={setStep}
+            setCheckMethodInput={setCheckMethodInput}
+            setLoginOrRegistrationToggle={setLoginOrRegistrationToggle}
+            setPhoneOrEmailInput={setPhoneOrEmailInput}
             hint={hint}
             visibleHint={visibleHint}
             showHint={showHint}
@@ -203,21 +214,9 @@ export default function Auth() {
 
         {step === 2 && (
           <AuthStep2
-            username={username}
             loginOrRegistrationToggle={loginOrRegistrationToggle}
-            show={show}
-            password={password}
-            checkPassword={checkPassword}
-            setUsername={setUsername}
-            setPassword={setPassword}
-            setShow={setShow}
-            showCheck={showCheck}
-            setCheckPassword={setCheckPassword}
-            setShowCheck={setShowCheck}
-            setStep={setStep}
             registrationWithEmail={registrationWithEmail}
             loginWithEmail={loginWithEmail}
-            phoneOrEmailInput={phoneOrEmailInput}
             hint={hint}
             visibleHint={visibleHint}
             showHint={showHint}
@@ -226,15 +225,11 @@ export default function Auth() {
         {step === 3 && (
           <AuthStep3
             checkMethodResult={checkMethodResult}
-            phoneOrEmailInput={phoneOrEmailInput}
-            setStep={setStep}
             confirmCode={confirmCode}
             setConfirmCode={setConfirmCode}
             confirmRegistration={confirmRegistration}
             registrantId={registrantId}
             registrationWithEmail={registrationWithEmail}
-            password={password}
-            username={username}
           />
         )}
         {step === 4 && <AuthStep4 />}

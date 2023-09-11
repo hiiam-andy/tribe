@@ -1,25 +1,24 @@
 //step1 - экран проверки способа входа телефон/емейл или подтверждение пароля при вхое с емейл
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import MyButton from "../UI/MyButton/MyButton";
+import CloseIcon from "../../Images/searchClose.svg";
+import styles from "./AuthWeb.module.css";
 
 import { checkEmail } from "../Profile/http/userApi";
 
-import MyButton from "../UI/MyButton/MyButton";
-import CloseIcon from "../../Images/searchClose.svg";
-
-import styles from "./AuthWeb.module.css";
+import { setPhoneOrEmailInput, setStep } from "./authSlice";
 
 export default function AuthStep1({
   loginOrRegistrationToggle,
   checkMethodInput,
   CheckAuthMethod,
   checkMethodResult,
-  phoneOrEmailInput,
-
   setCheckMethodInput,
   setLoginOrRegistrationToggle,
-  setPhoneOrEmailInput,
-  setStep,
 }) {
+  const { phoneOrEmailInput } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [hint, setHint] = useState("");
   const [visibleHint, setVisibleHint] = useState(false);
   const showHint = (text) => {
@@ -33,7 +32,7 @@ export default function AuthStep1({
   const registrationWithEmail = async (phoneOrEmailInput) => {
     const res = await checkEmail(phoneOrEmailInput);
     if (!res) {
-      setStep(2);
+      dispatch(setStep(2));
     } else {
       showHint("пользователь с таким email существует");
     }
@@ -41,13 +40,15 @@ export default function AuthStep1({
 
   const submitStepOne = async (checkMethodResult) => {
     if (checkMethodResult === "phone") {
-      setStep(3);
+      dispatch(setStep(3));
     } else if (checkMethodResult === "email") {
       if (!loginOrRegistrationToggle) {
         registrationWithEmail(phoneOrEmailInput);
       } else {
         const res = await checkEmail(phoneOrEmailInput);
-        res ? setStep(2) : showHint("пользователя с таким email не существует");
+        res
+          ? dispatch(setStep(2))
+          : showHint("пользователя с таким email не существует");
       }
     } else if (checkMethodResult === "empty") {
       showHint("заполните поле");
@@ -70,10 +71,9 @@ export default function AuthStep1({
             value={checkMethodInput}
             onChange={(e) => {
               setCheckMethodInput(e.target.value);
-              setPhoneOrEmailInput(e.target.value.toLowerCase());
+              dispatch(setPhoneOrEmailInput(e.target.value.toLowerCase()));
             }}
-            onKeyUp={() => CheckAuthMethod(checkMethodInput)}
-            onBlur={() => CheckAuthMethod(checkMethodInput)}
+            onKeyDown={() => CheckAuthMethod(checkMethodInput)}
           />
 
           {checkMethodInput.length > 0 && (
@@ -92,11 +92,7 @@ export default function AuthStep1({
           </MyButton>
         </div>
       </div>
-      {visibleHint ? (
-        <div className={styles.hint}>{hint}</div>
-      ) : (
-        <div className={styles.hint}></div>
-      )}
+      <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
 
       <div className={styles.login_registration_section}>
         <>
@@ -105,7 +101,7 @@ export default function AuthStep1({
             className={styles.login_registration_btn}
             onClick={() => {
               setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
-              setStep(1);
+              dispatch(setStep(1));
             }}
           >
             {!loginOrRegistrationToggle ? "Войти" : "Регистрация"}

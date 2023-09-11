@@ -12,9 +12,11 @@ import { subscribeToUser } from "./http/userApi";
 export default function Profile() {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getProfile(id));
   }, [id]);
+
   const { user } = useSelector((store) => store);
   const profile = user.userPage;
 

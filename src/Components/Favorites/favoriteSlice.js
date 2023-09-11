@@ -2,15 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 
-const token = localStorage.getItem("access_token");
-
 export const getFavorites = createAsyncThunk(
   "getFavorites/setGetFavorites",
   async (user_id) => {
     try {
       const res = await axios.get(`${BASE_URL}/events/favorite/${user_id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
       return res.data;

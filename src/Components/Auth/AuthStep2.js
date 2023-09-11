@@ -1,49 +1,30 @@
 //step2 ввод юзернейма и пароля, если на первом экране введен емейл
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./AuthWeb.module.css";
 import MyButton from "../UI/MyButton/MyButton";
 import ShowPassword from "../../Images/showPassword.svg";
 import { checkUsername } from "../Profile/http/userApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setCheckPassword, setPassword, setUsername } from "./authSlice";
 
 export default function AuthStep2({
-  username,
-  show,
-  password,
-  checkPassword,
   loginOrRegistrationToggle,
-  setUsername,
-  setPassword,
-  setShow,
-  showCheck,
-  setCheckPassword,
-  setShowCheck,
+
   registrationWithEmail,
   loginWithEmail,
-  phoneOrEmailInput,
+
+  hint,
+  setHint,
 }) {
-  const [isUnique, setIsUnique] = useState(false);
+  const { username, password, phoneOrEmailInput, checkPassword } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  //показать пароль
+  const [show, setShow] = useState(false);
+  const [showCheck, setShowCheck] = useState(false);
 
-  let interval;
-  const checkFreeUsername = (username) => {
-    clearTimeout(interval);
-    interval = setTimeout(async () => {
-      let res = await checkUsername(username);
-      if (res) {
-        setIsUnique(true);
-      } else {
-        setIsUnique(false);
-        showHint("Пользователь с таким юзернеймом уже существует");
-      }
-    }, 3000);
-  };
-
-  const sendForm = async (phoneOrEmailInput, password, username) => {
-    registrationWithEmail(phoneOrEmailInput, password, username);
-    setIsUnique(true);
-  };
-
-  const [hint, setHint] = useState("");
   const [visibleHint, setVisibleHint] = useState(false);
   const showHint = (text) => {
     setHint(text);
@@ -53,6 +34,29 @@ export default function AuthStep2({
     }, 3000);
   };
 
+  const sendForm = async (phoneOrEmailInput, password, username) => {
+    await registrationWithEmail(phoneOrEmailInput, password, username);
+  };
+
+  const [isUniqueUsername, setIsUniqueUsername] = useState(false);
+  useEffect(() => {
+    setIsUniqueUsername(false);
+    const timer = setTimeout(async () => {
+      let isExist;
+      if (username.length > 3) {
+        isExist = await checkUsername(username);
+        if (!isExist) {
+          setIsUniqueUsername(true);
+        } else {
+          showHint("Пользователь с таким юзернеймом уже существует");
+        }
+      }
+    }, 2500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [username]);
+
   return (
     <>
       {!loginOrRegistrationToggle && (
@@ -60,7 +64,9 @@ export default function AuthStep2({
           Придумайте пароль и уникальное имя
         </h1>
       )}
+
       <div style={{ display: "flex", flexDirection: "column" }}>
+        {/* инпут юзернейма при регистрации */}
         {!loginOrRegistrationToggle && (
           <>
             <div className={[styles.input_wrapper, styles.step2].join(" ")}>
@@ -69,12 +75,9 @@ export default function AuthStep2({
                 className={[styles.form_input].join(" ")}
                 placeholder="Уникальное имя"
                 value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value.toLowerCase());
-                  checkFreeUsername(username);
-                }}
+                onChange={(e) => dispatch(setUsername(e.target.value))}
               />
-              {isUnique ? (
+              {isUniqueUsername ? (
                 <svg
                   width="18"
                   height="13"
@@ -91,19 +94,21 @@ export default function AuthStep2({
                 ""
               )}
             </div>
-            {visibleHint && <h6>{hint}</h6>}
+            <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
           </>
         )}
         {loginOrRegistrationToggle && (
           <h1 className={styles.auth_heading}>Введите пароль</h1>
         )}
+
+        {/* инпут пароля при логине или регистрации */}
         <div className={[styles.input_wrapper, styles.step2].join(" ")}>
           <input
             className={[styles.form_input].join(" ")}
             placeholder="введите пароль"
             type={!show ? "password" : "text"}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => dispatch(setPassword(e.target.value))}
           />
 
           <label style={{ display: "flex", alignItems: "center" }}>
@@ -111,26 +116,31 @@ export default function AuthStep2({
             <input type="checkbox" style={{ display: "none" }} />
           </label>
         </div>
+        <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
 
+        {/* инпут повтора пароля при регистрации */}
         {!loginOrRegistrationToggle && (
-          <div className={[styles.input_wrapper, styles.step2].join(" ")}>
-            <input
-              className={[styles.form_input].join(" ")}
-              placeholder="подтвердите пароль"
-              type={!showCheck ? "password" : "text"}
-              value={checkPassword}
-              onChange={(e) => setCheckPassword(e.target.value)}
-            />
-
-            <label style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={ShowPassword}
-                alt="show"
-                onClick={() => setShowCheck(!showCheck)}
+          <>
+            <div className={[styles.input_wrapper, styles.step2].join(" ")}>
+              <input
+                className={[styles.form_input].join(" ")}
+                placeholder="подтвердите пароль"
+                type={!showCheck ? "password" : "text"}
+                value={checkPassword}
+                onChange={(e) => dispatch(setCheckPassword(e.target.value))}
               />
-              <input type="checkbox" style={{ display: "none" }} />
-            </label>
-          </div>
+
+              <label style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={ShowPassword}
+                  alt="show"
+                  onClick={() => setShowCheck(!showCheck)}
+                />
+                <input type="checkbox" style={{ display: "none" }} />
+              </label>
+            </div>
+            <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
+          </>
         )}
       </div>
 

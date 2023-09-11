@@ -11,8 +11,8 @@ export const registrationEmail = async (email, password, username) => {
       username,
     });
     return res.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -36,7 +36,7 @@ export const confirmRegistrationEmail = async (
     localStorage.setItem("refresh_token", res.data.refresh_token);
     return jwt_decode(res.data.access_token);
   } catch (err) {
-    console.log(err);
+    console.log("authApi/confirmRegistrationEmail" + err);
   }
 };
 
@@ -52,7 +52,7 @@ export const loginEmail = async (email, password) => {
     localStorage.setItem("refresh_token", res.data.refresh_token);
     return jwt_decode(res.data.access_token);
   } catch (err) {
-    console.log(err);
+    return err.response.request.status;
   }
 };
 

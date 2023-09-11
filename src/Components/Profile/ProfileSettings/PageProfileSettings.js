@@ -16,6 +16,7 @@ export default function PageProfileSettings() {
     dispatch(setAuth(false));
     localStorage.clear();
     navigate(EVENTS_ROUTE);
+    window.location.reload();
   };
 
   const removeAccount = async (user_id) => {
@@ -25,6 +26,7 @@ export default function PageProfileSettings() {
       dispatch(setAuth(false));
       localStorage.clear();
       navigate(EVENTS_ROUTE);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

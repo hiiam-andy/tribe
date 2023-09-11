@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
-const token = localStorage.getItem("access_token");
 
 export const getEvent = createAsyncThunk(
   "event/getEvent",
@@ -9,7 +8,7 @@ export const getEvent = createAsyncThunk(
     try {
       const res = await axios(`${BASE_URL}/events/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
       return res.data;
