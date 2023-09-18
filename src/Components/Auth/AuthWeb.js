@@ -180,14 +180,14 @@ export default function Auth() {
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Link to={EVENTS_ROUTE}>на главную</Link>
-          <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
+          {/* <button onClick={() => console.log(isAuth, authUser)}>isAuth?</button>
           <button
             onClick={() => {
               setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
             }}
           >
             toggle
-          </button>
+          </button> */}
         </div>
         {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button onClick={() => dispatch(setStep(1))}>шаг1</button>
