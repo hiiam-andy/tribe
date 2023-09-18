@@ -35,7 +35,6 @@ export default function PageEvent() {
   const addFav = (user_id, event_id) => {
     addToFavorite(String(user_id), Number(event_id));
   };
-  console.log(event.list.favorite_event);
 
   let eventImage;
   if (!event.list.event_photo) {

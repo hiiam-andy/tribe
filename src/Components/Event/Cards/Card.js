@@ -30,11 +30,6 @@ export default function Card({ id, image, title, place, date, type }) {
     return <span>загружается</span>;
   }
 
-  let eventImage;
-  if (image !== undefined && image.length > 0) {
-    eventImage = image[0];
-  }
-
   return (
     <div className={[styles.card, cardStyle].join(" ")}>
       <BsHeart
@@ -51,7 +46,7 @@ export default function Card({ id, image, title, place, date, type }) {
         <div className={[styles.image_wrapper, cardStyle].join(" ")}>
           <img
             className={styles.image}
-            src={`https://tribual.ru/api/v1/events/avatars/${eventImage}`}
+            src={image}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null;
               currentTarget.src =

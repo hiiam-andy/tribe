@@ -5,6 +5,7 @@ import { setAuth } from "../Auth/authSlice";
 import { checkAuth } from "../Auth/http/authApi";
 import Card from "../Event/Cards/Card";
 import styles from "./styles/Favorites.module.css";
+import { BASE_URL } from "../../utils/constants";
 
 export default function Favorites() {
   const dispatch = useDispatch();
@@ -19,15 +20,21 @@ export default function Favorites() {
 
   const { favorites } = useSelector((state) => state);
   const fav = favorites.list;
-  console.log(fav);
   let res;
   if (fav) {
     res = fav.map((el) => {
+      console.log(el);
+      let eventImage;
+      if (el?.event_photo) {
+        eventImage = `${BASE_URL}/events/avatars/${el.event_photo[0]}`;
+      } else {
+        eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+      }
       return (
         <Card
           key={el.event_id}
           id={el.event_id}
-          image={el.event_photo}
+          image={eventImage}
           title={el.event_name}
           place={el.event_address?.city}
           date={el.start_time}

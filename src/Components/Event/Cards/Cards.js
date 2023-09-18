@@ -9,6 +9,7 @@ import Card from "./Card";
 import MyButton from "../../UI/MyButton/MyButton";
 
 import styles from "./styles/Cards.module.css";
+import { BASE_URL } from "../../../utils/constants";
 
 export default function Cards() {
   const dispatch = useDispatch();
@@ -39,11 +40,18 @@ export default function Cards() {
   };
 
   const allEvents = events.list.map((event) => {
+    let eventImage;
+    if (event?.avatarUrl) {
+      eventImage = `${BASE_URL}/events/avatars/${event.avatarUrl[0]}`;
+    } else {
+      eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+    }
+
     return (
       <Card
         key={event.eventId}
         id={event.eventId}
-        image={event.avatarUrl}
+        image={eventImage}
         title={event.eventName}
         place={event.eventAddress.city}
         date={event.startTime}

@@ -33,17 +33,6 @@ export default function SearchButtonsItem() {
     dispatch(setSelectedType(selectedTypesFromComponent));
   };
 
-  // const onWheel = (e) => {
-  //   const container = document.getElementById("container");
-  //   const containerScrollPosition =
-  //     document.getElementById("container").scrollLeft;
-  //   container.scrollTo({
-  //     top: 0,
-  //     left: containerScrollPosition + e.deltaY,
-  //     behaviour: "smooth",
-  //   });
-  // };
-
   const allTypes = types.list.map(({ id, type_name }) => {
     return (
       <SearchButton
@@ -63,11 +52,7 @@ export default function SearchButtonsItem() {
     );
   });
   return (
-    <div
-      className={styles.searchButtons_section}
-      id="container"
-      // onWheel={onWheel}
-    >
+    <div className={styles.searchButtons_section} id="container">
       {allTypes}
     </div>
   );

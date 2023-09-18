@@ -167,9 +167,9 @@ export default function NavbarMobile() {
           />
         </svg>
       </NavLink>
-      <NavLink to={AUTH_ROUTE}>
+      {/* <NavLink to={AUTH_ROUTE}>
         <button>Auth</button>
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 }

@@ -41,9 +41,9 @@ export default function Auth() {
   const {
     isAuth,
     authUser,
-    phoneOrEmailInput,
+    // phoneOrEmailInput,
     // username,
-    password,
+    // password,
     step,
     checkPassword,
   } = useSelector((state) => state.auth);
@@ -58,7 +58,7 @@ export default function Auth() {
   // const [step, setStep] = useState(1);
 
   //инпуты
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [confirmCode, setConfirmCode] = useState("");
 
   //переключение логин/регистрация
@@ -106,7 +106,7 @@ export default function Auth() {
         console.log(res.code);
         setRegistrantId(res.registrant_id);
         dispatch(setStep(3));
-        alert("одноразовый код в консоли");
+        alert("одноразовый код в консоли!");
         return res;
       } else {
         showHint("Пароли не совпадают");
@@ -120,7 +120,9 @@ export default function Auth() {
   const confirmRegistration = async (registrantId, confirmCode) => {
     try {
       const res = await confirmRegistrationEmail(registrantId, confirmCode);
-      setStep(4);
+      dispatch(setStep(1));
+      navigate(EVENTS_ROUTE);
+      window.location.reload();
       return res;
     } catch (err) {
       console.log(err);
@@ -131,13 +133,14 @@ export default function Auth() {
   const loginWithEmail = async (phoneOrEmailInput, password) => {
     try {
       const res = await loginEmail(phoneOrEmailInput, password);
-      if (res === 200) {
+      console.log(res);
+      if (res) {
         const newUser = res;
         dispatch(setAuth(true));
         dispatch(setUser(newUser));
         dispatch(setPhoneOrEmailInput(""));
         dispatch(setPassword(""));
-        setPassword("");
+        dispatch(setStep(1));
         navigate(EVENTS_ROUTE);
         window.location.reload();
       } else {
@@ -186,12 +189,12 @@ export default function Auth() {
             toggle
           </button>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button onClick={() => dispatch(setStep(1))}>шаг1</button>
           <button onClick={() => dispatch(setStep(2))}>шаг2</button>
           <button onClick={() => dispatch(setStep(3))}>шаг3</button>
           <button onClick={() => dispatch(setStep(4))}>шаг4</button>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.auth_form}>
