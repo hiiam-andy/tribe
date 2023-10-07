@@ -1,6 +1,19 @@
-.card_wrapper{
+.page_wrapper{
   margin-right: auto;
   margin-left: auto;
   max-width: 500px;
   padding-bottom: 60px;
+}
+.favorites_heading{
+  padding: 8px 16px;
+}
+.favorites_heading__title{
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+}
+.favorites_heading__counter{
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
 }

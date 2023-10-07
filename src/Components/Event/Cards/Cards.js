@@ -1,57 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { getEvents } from "../eventsSlice";
-import { setAuth } from "../../Auth/authSlice";
-import { checkAuth } from "../../Auth/http/authApi";
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
-import MyButton from "../../UI/MyButton/MyButton";
-
 import styles from "./styles/Cards.module.css";
 import { BASE_URL } from "../../../utils/constants";
+import { setLoading, setPage } from "../eventsSlice";
 
 export default function Cards() {
   const dispatch = useDispatch();
-  const { events } = useSelector((state) => state);
-
-  const [currentPage, setCurrentPage] = useState(
-    Number(localStorage.getItem("currentPage")) || 0
-  );
+  const events = useSelector((state) => state.events.list);
+  const isLoading = useSelector((state) => state.events.isLoading);
+  const page = useSelector((state) => state.events.page);
+  const eventList = events || [];
 
   useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      checkAuth().then(() => {
-        dispatch(setAuth(true));
-      });
-    }
-    dispatch(getEvents(currentPage));
-  }, [dispatch, currentPage]);
+    document.addEventListener("scroll", scrollHandler);
+    return () => document.removeEventListener("scroll", scrollHandler);
+  }, []);
 
-  const nextPage = (currentPage) => {
-    const page = currentPage + 1;
-    setCurrentPage(page);
-    localStorage.setItem("currentPage", page);
-  };
-  const previousPage = (currentPage) => {
-    const page = currentPage - 1;
-    setCurrentPage(page);
-    localStorage.setItem("currentPage", page);
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+      20
+    ) {
+      dispatch(setLoading(true));
+    }
   };
 
-  const allEvents = events.list.map((event) => {
-    let eventImage;
-    if (event?.avatarUrl) {
-      eventImage = `${BASE_URL}/events/avatars/${event.avatarUrl[0]}`;
-    } else {
-      eventImage = "https://www.ferremas.com.py/gfx/fotosweb/wprod_0.jpg";
+  useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => fetchMoreData(), 0);
+      dispatch(setLoading(false));
     }
+  }, [isLoading]);
 
+  const fetchMoreData = () => {
+    dispatch(setPage(page + 1));
+  };
+
+  const allEvents = eventList.map((event) => {
     return (
       <Card
         key={event.eventId}
         id={event.eventId}
-        image={eventImage}
+        image={event.avatarUrl}
         title={event.eventName}
         place={event.eventAddress.city}
         date={event.startTime}
@@ -63,19 +55,6 @@ export default function Cards() {
   return (
     <div className={styles.cards}>
       <div className={styles.cards_wrapper}>{allEvents}</div>
-      <div className={styles.btn_wrapper}>
-        <span>
-          {currentPage > 0 ? (
-            <MyButton onClick={() => previousPage(currentPage)}>Назад</MyButton>
-          ) : (
-            <MyButton disabled>Назад</MyButton>
-          )}
-        </span>
-        <p>Страница {currentPage + 1}</p>
-        <span>
-          <MyButton onClick={() => nextPage(currentPage)}>Вперед</MyButton>
-        </span>
-      </div>
     </div>
   );
 }

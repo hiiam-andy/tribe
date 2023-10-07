@@ -1,60 +1,22 @@
+/* общее */
 .card{
   display: flex;
   flex-direction: column;
   position: relative;
   max-height: 269px;
   background-color: var(--bg);
-max-width: 650px;
+  max-width: 650px;
   transition: all .3s ease;
-}
-.card.feed{
-  border-radius: 10px;
-  overflow: hidden;
-}
-.card.feed:hover{
-  box-shadow: 0 0 5px 7px #e3e1ec;
 }
 .card_wrapper{
   width:100%;
   height: 100%;
   border-radius: 0;
 }
-
-.card_wrapper.favorites{
-  display:flex;
-  height: 100px;
-}
-.image_wrapper{
-  height: 47%;
-  min-height: 120px ;
-}
-.image_wrapper.favorites{
-  width: 100px;
-  height: 100px;
-}
 .image{
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.heart{
-  position: absolute;
-  top: 10px;
-  left: 83.6%;
-  width:18px;
-  height: 22px;
-  cursor: pointer;
-}
-
-.like{
-  position: absolute;
-  top: 10px;
-  left: 83.6%;
-  width:18px;
-  height: 22px;
-  cursor: pointer;
-  color: red;
 }
 .info{
   display: flex;
@@ -65,8 +27,6 @@ max-width: 650px;
   color: #1b1b1f
 }
 .title{
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 6px;
 }
 .title_text{
@@ -75,18 +35,27 @@ max-width: 650px;
   font-weight: 500;
   line-height: 24px;
 }
-.title_text.feed{
-  max-width: 88%;
-  max-height: 50px;
-  
+.heart{
+  position: absolute;
+  top: 10px;
+  left: 83.6%;
+  width:18px;
+  height: 22px;
+  cursor: pointer;
+}
+.like{
+  position: absolute;
+  top: 10px;
+  left: 83.6%;
+  width:18px;
+  height: 22px;
+  cursor: pointer;
+  color: red;
 }
 .description{
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
-}
-.destription_place_date.favorites{
-  display: flex;
 }
 .desc_icon{
   margin-right: 8px;
@@ -97,8 +66,65 @@ max-width: 650px;
   display: flex;
   margin-bottom: 9px;
 }
-@media(min-width:1024px){
+
+
+/* type === feed */
+.card.feed{
+  border-radius: 10px;
+  overflow: hidden;
+}
+.image_wrapper.feed{
+  height: 47%;
+  min-height: 120px ;
+}
+.card.feed:hover{
+  box-shadow: 0 0 5px 7px #e3e1ec;
+}
+.title_text.feed{
+  max-width: 88%;
+  max-height: 50px;
+}
+
+
+/* type === favorites */
+.card_wrapper.favorites{
+  display:flex;
+  height: 100px;
+}
+.image_wrapper.favorites{
+  width: 100px;
+  height: 100px;
+}
+.destription_place_date.favorites{
+  display: flex;
+  justify-content: space-between;
+}
+.info.favorites{
+  width:70%;
+  height: 100%;
+}
+.title_text.favorites{
+  font-size: 14px;
+  line-height: 18px;
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.heart.favorites{
+  left: 93.6%
+}
+.like.favorites{
+  left: 93.6%
+}
+
+
+
+
+/* @media(min-width:1024px){
   .card_wrapper.favorites{
     height: 180px;
   }
-}
+} */

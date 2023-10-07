@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getEvent } from "./eventSlice";
 import { BASE_URL } from "../../utils/constants";
 import { USER_ROUTE } from "../../utils/CONST_PAGES";
 
-import {
-  BsHeart,
-  BsHeartFill,
-  BsFillGeoAltFill,
-  BsCalendarCheck,
-} from "react-icons/bs";
+import { BsHeart, BsFillGeoAltFill, BsCalendarCheck } from "react-icons/bs";
 import { MdWatch } from "react-icons/md";
 import { GiBackwardTime } from "react-icons/gi";
 import MockAvatar from "../../Images/Babushkaboy.png";
@@ -26,7 +21,8 @@ export default function PageEvent() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const { event } = useSelector((state) => state);
+  const oneEvent = useSelector((state) => state.event);
+  const event = oneEvent || [];
 
   useEffect(() => {
     dispatch(getEvent(id));

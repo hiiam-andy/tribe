@@ -19,12 +19,24 @@ const eventsSlice = createSlice({
   name: "events",
   initialState: {
     list: [],
+    page: 0,
+    isLoading: false,
+  },
+  reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {
-      state.list = action.payload;
+      state.list = [...state.list, ...action.payload];
     });
   },
 });
+
+export const { setPage, setLoading } = eventsSlice.actions;
 
 export default eventsSlice.reducer;
