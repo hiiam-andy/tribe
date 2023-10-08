@@ -1,7 +1,6 @@
 .header{
   display: flex;
   align-items: center;
-  padding: 3px 0;
   margin-left: auto;
   margin-right: auto;
   min-height: 48px;
@@ -12,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   align-self: center;
-  padding: 0 2.2%;
+  padding: 10px 2.2%;
   width: 100%;
   max-width: 912px;
   margin-left: auto;
@@ -38,18 +37,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: 32px;
 }
-.nav_link:not(:first-child){
-  margin-left: 3%;
+.nav_link:hover .nav_link__image path{
+fill:#725cff;
+transition: fill 0.2s;
 }
-.btn{
-  color:aliceblue;
-  background-color: #5837F3;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 15px ;
-  cursor: pointer;
-}
+
 .addBtn{
   display: none;
   align-items: center;

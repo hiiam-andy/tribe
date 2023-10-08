@@ -13,9 +13,6 @@ export default function AuthStep2({
 
   registrationWithEmail,
   loginWithEmail,
-
-  hint,
-  setHint,
 }) {
   const { username, password, phoneOrEmailInput, checkPassword } = useSelector(
     (state) => state.auth
@@ -25,6 +22,7 @@ export default function AuthStep2({
   const [show, setShow] = useState(false);
   const [showCheck, setShowCheck] = useState(false);
 
+  const [hint, setHint] = useState("");
   const [visibleHint, setVisibleHint] = useState(false);
   const showHint = (text) => {
     setHint(text);
@@ -39,6 +37,7 @@ export default function AuthStep2({
   };
 
   const [isUniqueUsername, setIsUniqueUsername] = useState(false);
+
   useEffect(() => {
     setIsUniqueUsername(false);
     const timer = setTimeout(async () => {
@@ -51,7 +50,7 @@ export default function AuthStep2({
           showHint("Пользователь с таким юзернеймом уже существует");
         }
       }
-    }, 2500);
+    }, 1000);
     return () => {
       clearTimeout(timer);
     };

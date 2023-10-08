@@ -50,21 +50,30 @@ export default function Profile() {
 
   return (
     <div className={styles.section_profile}>
-      <button onClick={() => console.log(profile)}>show</button>
+      {/* <button onClick={() => console.log(profile)}>show</button> */}
       <div className={styles.profile_container}>
         <img src={avatar_url} alt="avatar" className={styles.profile_avatar} />
 
         <div className={styles.profile_info}>
           <div className={styles.profile_description}>
             <div className={styles.profile_heading}>
-              <h1 className={styles.profile_username}>
+              <h1
+                className={[
+                  styles.profile_info__text,
+                  styles.profile_username,
+                ].join(" ")}
+              >
                 {profile.username
                   ? `@${profile.username}`
                   : "Юзернейм не задан"}
               </h1>
               {Number(localStorage.getItem("user_id")) === profile.user_id ? (
-                <NavLink to={SETTINGS_ROUTE}>
+                <NavLink
+                  to={SETTINGS_ROUTE}
+                  className={styles.settings_subscribe_btn}
+                >
                   <svg
+                    className={styles.btn_icon}
                     width="40"
                     height="40"
                     viewBox="0 0 40 40"
@@ -87,7 +96,7 @@ export default function Profile() {
                 </NavLink>
               ) : (
                 <div
-                  style={{ cursor: "pointer" }}
+                  className={styles.settings_subscribe_btn}
                   onClick={() =>
                     subscribeToUser(
                       Number(localStorage.getItem("user_id")),
@@ -126,9 +135,13 @@ export default function Profile() {
                 </div>
               )}
             </div>
-            <p>{profile.full_name ? profile.full_name : "Имя не задано"}</p>
-            <p>{profile.age ? profile.age : "Возраст не указан"}</p>
-            <div>{profileProfession}</div>
+            <p className={styles.profile_info__text}>
+              {profile.full_name ? profile.full_name : "Имя не задано"}
+            </p>
+            <p className={styles.profile_info__text}>
+              {profile.age ? `${profile.age} лет` : "Возраст не указан"}
+            </p>
+            <div className={styles.profile_info__text}>{profileProfession}</div>
           </div>
           <div>Здесь будут подписчики</div>
         </div>

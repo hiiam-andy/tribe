@@ -7,6 +7,7 @@
   color: #dfe0ff;
   background-color: #3b4cdc;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 .myBtn:hover{
   background-color: #3b4bdcdc;

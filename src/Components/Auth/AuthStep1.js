@@ -19,6 +19,7 @@ export default function AuthStep1({
 }) {
   const { phoneOrEmailInput } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   const [hint, setHint] = useState("");
   const [visibleHint, setVisibleHint] = useState(false);
   const showHint = (text) => {
@@ -59,54 +60,56 @@ export default function AuthStep1({
 
   return (
     <>
-      <h1 className={styles.auth_heading}>
-        {!loginOrRegistrationToggle ? "Регистрация" : "Авторизация"}
-      </h1>
+      <div className={styles.email_phone_registration}>
+        <h1 className={styles.auth_heading}>
+          {!loginOrRegistrationToggle ? "Регистрация" : "Авторизация"}
+        </h1>
 
-      <div className={styles.step1_wrapper}>
-        <div className={styles.input_wrapper}>
-          <input
-            className={styles.form_input}
-            placeholder="Телефон/Почта"
-            value={checkMethodInput}
-            onChange={(e) => {
-              setCheckMethodInput(e.target.value);
-              dispatch(setPhoneOrEmailInput(e.target.value.toLowerCase()));
-            }}
-            onKeyDown={() => CheckAuthMethod(checkMethodInput)}
-          />
-
-          {checkMethodInput.length > 0 && (
-            <img
-              src={CloseIcon}
-              alt="close"
-              onClick={() => setCheckMethodInput("")}
-              style={{ cursor: "pointer" }}
+        <div className={styles.step1_wrapper}>
+          <div className={styles.input_wrapper}>
+            <input
+              className={styles.form_input}
+              placeholder="Телефон/Почта"
+              value={checkMethodInput}
+              onChange={(e) => {
+                setCheckMethodInput(e.target.value);
+                dispatch(setPhoneOrEmailInput(e.target.value.toLowerCase()));
+              }}
+              onKeyDown={() => CheckAuthMethod(checkMethodInput)}
             />
-          )}
-        </div>
 
-        <div className={styles.step1_btn_wrapper}>
-          <MyButton onClick={() => submitStepOne(checkMethodResult)}>
-            Далее
-          </MyButton>
-        </div>
-      </div>
-      <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
+            {checkMethodInput.length > 0 && (
+              <img
+                src={CloseIcon}
+                alt="close"
+                onClick={() => setCheckMethodInput("")}
+                style={{ cursor: "pointer" }}
+              />
+            )}
+          </div>
 
-      <div className={styles.login_registration_section}>
-        <>
-          {!loginOrRegistrationToggle ? "Уже есть профиль?" : "Нет Профиля?"}
-          <span
-            className={styles.login_registration_btn}
-            onClick={() => {
-              setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
-              dispatch(setStep(1));
-            }}
-          >
-            {!loginOrRegistrationToggle ? "Войти" : "Регистрация"}
-          </span>
-        </>
+          <div className={styles.step1_btn_wrapper}>
+            <MyButton onClick={() => submitStepOne(checkMethodResult)}>
+              Далее
+            </MyButton>
+          </div>
+        </div>
+        <h6 className={styles.hint}>{visibleHint ? hint : ""}</h6>
+
+        <div className={styles.login_registration_section}>
+          <>
+            {!loginOrRegistrationToggle ? "Уже есть профиль?" : "Нет Профиля?"}
+            <span
+              className={styles.login_registration_btn}
+              onClick={() => {
+                setLoginOrRegistrationToggle(!loginOrRegistrationToggle);
+                dispatch(setStep(1));
+              }}
+            >
+              {!loginOrRegistrationToggle ? "Войти" : "Регистрация"}
+            </span>
+          </>
+        </div>
       </div>
     </>
   );

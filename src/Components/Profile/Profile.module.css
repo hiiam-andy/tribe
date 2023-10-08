@@ -2,18 +2,26 @@
   margin-left: auto;
   margin-right: auto;
   max-width: 912px;
-}
-.profile_container{
-  display: flex;
-  justify-content: center;
   padding: 16px;
   background-color: #fef7ff;
+}
+.profile_container{
+  position: relative;
+  display: flex;
   margin-left: auto;
   margin-right: auto;
 }
 .profile_heading{
   display: flex;
   justify-content: space-between;
+}
+.settings_subscribe_btn{
+  position: absolute;
+  right: 20px
+}
+.settings_subscribe_btn:hover .btn_icon rect{
+  fill:#3b4bdcdc;
+  transition: fill 0.2s;
 }
 .profile_info{
   display: flex;
@@ -24,11 +32,17 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 16px;
+}
+.profile_info__text{
+  color: #47464F;
+  margin-bottom: 4px;
 }
 .profile_username{
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
+  color: #1d1b20
 }
 .profile_description{
   font-weight: 300;
@@ -54,6 +68,10 @@
 @media(min-width: 1024px){
   .profile_container{
 flex-direction: column;
+  }
+  .profile_info__text{
+    
+    margin-bottom: 8px;
   }
 
 }

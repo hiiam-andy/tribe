@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import BackButton from "../../../Images/backButton.svg";
-import { setAuth, setUser } from "../../Auth/authSlice";
+import { setAuth } from "../../Auth/authSlice";
 import { useDispatch } from "react-redux";
 import { deleteAccount } from "../http/userApi";
 import { EVENTS_ROUTE } from "../../../utils/CONST_PAGES";
@@ -12,7 +12,6 @@ export default function PageProfileSettings() {
   const navigate = useNavigate();
 
   const logout = () => {
-    dispatch(setUser({}));
     dispatch(setAuth(false));
     localStorage.clear();
     navigate(EVENTS_ROUTE);
@@ -22,7 +21,7 @@ export default function PageProfileSettings() {
   const removeAccount = async (user_id) => {
     try {
       await deleteAccount(user_id);
-      dispatch(setUser({}));
+
       dispatch(setAuth(false));
       localStorage.clear();
       navigate(EVENTS_ROUTE);

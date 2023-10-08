@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import jwt_decode from "jwt-decode";
-
-let authUser;
-if (localStorage.getItem("access_token")) {
-  authUser = jwt_decode(localStorage.getItem("access_token"));
-} else {
-  authUser = {};
-}
 
 const initialState = {
   isAuth: false,
-  authUser: authUser,
+
   phoneOrEmailInput: "",
   username: "",
   password: "",
@@ -24,9 +16,6 @@ const authSlice = createSlice({
   reducers: {
     setAuth: (state, action) => {
       state.isAuth = action.payload;
-    },
-    setUser: (state, action) => {
-      state.authUser = action.payload;
     },
     setPhoneOrEmailInput: (state, action) => {
       state.phoneOrEmailInput = action.payload;
@@ -48,21 +37,12 @@ const authSlice = createSlice({
 
 export const {
   setAuth,
-  setUser,
-  //регулярки
-  regEmail,
-  regPhone,
   //инпуты
-  phoneOrEmailInput,
   setPhoneOrEmailInput,
-  username,
   setUsername,
-  password,
   setPassword,
-  checkPassword,
   setCheckPassword,
-
-  step,
+  //шаги регистрации
   setStep,
 } = authSlice.actions;
 export default authSlice.reducer;
